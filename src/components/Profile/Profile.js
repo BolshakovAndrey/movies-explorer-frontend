@@ -1,7 +1,7 @@
-function Portfolio() {
+function Profile() {
     return (
-        <p>Portfolio — компонент со ссылками на другие проекты.</p>
+        <p>Profile — компонент страницы изменения профиля.</p>
     );
 }
 
-export default Portfolio;
+export default Profile;
