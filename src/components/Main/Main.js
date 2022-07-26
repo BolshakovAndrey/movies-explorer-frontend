@@ -8,12 +8,11 @@ import Portfolio from "../Profile/Profile";
 function Main() {
     return (
         <>
-            <NavTab />
             <Promo />
+            <NavTab />
             <AboutProject />
             <Techs />
             <AboutMe />
-            <Portfolio />
         </>
     );
 }
