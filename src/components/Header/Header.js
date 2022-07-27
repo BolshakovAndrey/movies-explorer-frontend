@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
 import HeaderLogo from "../../images/header-logo.svg";
 
-function Header() {
+function Header({ loggedIn }) {
     return(
         <header className="header">
             <div className="header__container">
@@ -13,7 +13,7 @@ function Header() {
                          alt="Логотип сайта"
                     />
                 </Link>
-                <Navigation />
+                <Navigation loggedIn={ loggedIn } />
             </div>
         </header>
     )

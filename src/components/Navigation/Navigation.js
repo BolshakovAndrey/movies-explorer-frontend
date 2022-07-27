@@ -1,40 +1,63 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
 
-function Navigation() {
-    const NAVIGATION_LINKS = [
-        {
-          key: 1,
-          linkText: "Фильмы",
-          linkPath: "/movies",
-          exact:false,
-        },
-        {
-          key: 2,
-          linkText: "Сохранённые фильмы",
-          linkPath: "/saved-movies",
-          exact:false,
-        },
-    ]
+function Navigation({ loggedIn }) {
     return(
-        <nav className="navigation">
-            <ul className="navigation__items">
-                <div className="navigation__links-container">
-                    {NAVIGATION_LINKS.map((item) => (
-                        <li className="navigation__list-item" key={item.key}>
-                            <NavLink
-                                className="navigation__link"
-                                activeClassName="navigation__link_active"
-                                to={{ pathname: item.linkPath }}
-                                exact={item.exact}
+        <>
+            {!loggedIn && (
+                <ul className="header__nav-links">
+                    <li>
+                        <NavLink
+                            className="header__nav-link"
+                            activeClassName="header__nav-link_active"
+                            to={{ pathname: "/signup" }}
                             >
-                                {item.linkText}
-                            </NavLink>
-                        </li>
-                    ))}
-                </div>
-            </ul>
-        </nav>
+                            Регистрация
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            className="header__nav-link"
+                            activeClassName="header__nav-link_active"
+                            to={{ pathname: "/signin" }}
+                        >
+                            Войти
+                        </NavLink>
+                    </li>
+                </ul>
+            )}
+            {loggedIn && (
+                <ul className="header__nav-links">
+                    <li>
+                        <NavLink
+                            className="header__nav-link"
+                            activeClassName="header__nav-link_active"
+                            to={{ pathname: "/movies" }}
+                            >
+                            Фильмы
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            className="header__nav-link"
+                            activeClassName="header__nav-link_active"
+                            to={{ pathname: "/saved-movies" }}
+                            >
+                            Сохранённые фильмы
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            className="header__nav-link"
+                            activeClassName="header__nav-link_active"
+                            to={{ pathname: "/profile" }}
+                            >
+                            Профиль
+                        </NavLink>
+                    </li>
+                </ul>
+            )}
+        </>
     );
 }
 

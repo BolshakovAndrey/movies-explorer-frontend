@@ -9,15 +9,17 @@ import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import PageNotFound from "../PageNotFound/PageNotFound";
+import {useState} from "react";
 
 
 
 function App() {
+    const [loggedIn, setLoggedIn] = useState(false);
     return (
         <div className="App">
-            <Header />
+            <Header loggedIn={loggedIn}/>
             <Switch>
-                <Route path='/'>
+                <Route exact path='/'>
                     <Main />
                 </Route>
                 <Route path='/movies'>
