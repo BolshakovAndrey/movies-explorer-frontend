@@ -10,14 +10,21 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import {useState} from "react";
-
-
+import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 
 function App() {
+
+    const [currentUser, setCurrentUser] = useState({
+        name: "Виталий",
+        email: "vitaliy@email.com"
+    });
+
     const [loggedIn, setLoggedIn] = useState(false);
     return (
+        <CurrentUserContext.Provider value={currentUser}>
         <div className="App">
             <Header loggedIn={loggedIn}/>
+
             <Switch>
                 <Route exact path='/'>
                     <Main />
@@ -41,8 +48,10 @@ function App() {
                     <PageNotFound />
                 </Route>
             </Switch>
+
             <Footer />
         </div>
+        </CurrentUserContext.Provider>
     );
 }
 

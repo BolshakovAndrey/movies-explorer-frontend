@@ -1,6 +1,12 @@
+import SearchForm from "../SearchForm/SearchForm";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
+
 function Movies() {
     return (
-        <p>Movies — компонент страницы с поиском по фильмам.</p>
+        <main>
+            <SearchForm />
+            <MoviesCardList />
+        </main>
     )
 }
 
