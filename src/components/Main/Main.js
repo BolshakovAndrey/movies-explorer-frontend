@@ -5,11 +5,11 @@ import Techs from "../Techs/Techs";
 
 function Main() {
     return (
-        <main className="main page__content">
-            <Promo />
-            <AboutProject />
-            <Techs />
-            <AboutMe />
+        <main className="page__content">
+            <Promo/>
+            <AboutProject/>
+            <Techs/>
+            <AboutMe/>
         </main>
     );
 }

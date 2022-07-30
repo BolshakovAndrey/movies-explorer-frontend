@@ -1,8 +1,14 @@
+import './AboutProject.css';
+import '../SectionTitle/SectionTitle';
+import SectionTitle from "../SectionTitle/SectionTitle";
+
 function AboutProject() {
     return (
-        <section className="project" id="project">
-            <div className="main__section-container">
-                <h2 className="project__title">О проекте</h2>
+        <section className="project section" id="project">
+            <div className="section__container section__container_size_medium">
+                <SectionTitle
+                    title="О проекте"
+                />
                 <ul className="project-desc">
                     <li className="project-desc__cell">
                         <h3 className="project-desc__heading">Дипломный проект включал 5 этапов</h3>
@@ -21,7 +27,7 @@ function AboutProject() {
                 </ul>
                 <ul className="project-timing">
                     <li className="project-timing__cell">
-                        <p className="project-timing__heading">1 неделя</p>
+                        <p className="project-timing__heading project-timing__heading_accent">1 неделя</p>
                         <p className="project-timing__text">Back-end</p>
                     </li>
                     <li className="project-timing__cell">

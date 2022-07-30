@@ -1,5 +1,6 @@
-import React from 'react'
-import { Link } from "react-router-dom";
+import React from 'react';
+import './Portfolio.css';
+import {Link} from "react-router-dom";
 
 function Portfolio() {
     const PORTFOLIO_LINKS = [
@@ -28,7 +29,7 @@ function Portfolio() {
                     >
                         <Link
                             className="portfolio__link"
-                            to={{ pathname: item.link }}
+                            to={{pathname: item.link}}
                             target="_blank"
                         >
                             {item.title}
