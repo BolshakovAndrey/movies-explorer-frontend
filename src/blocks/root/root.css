@@ -1,7 +1,8 @@
 :root {
   --color-bg-primary: #202020;
   --color-bg-secondary: #272727;
-  --color-bg-tertiary: #303030;
+  /*--color-bg-tertiary: #303030;*/
+  --color-bg-tertiary: #424242;
   --color-bg-promo-only: #073042;
 
   --color-text-primary: #FFFFFF;
