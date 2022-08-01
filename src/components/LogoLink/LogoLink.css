@@ -1,0 +1,17 @@
+.logo-link_place_form {
+  margin: 0 0 40px;
+  display: block;
+}
+
+.logo-link__image_place_form {
+  width: 40px;
+  height: 40px;
+}
+
+@media screen and (max-width: 767px) {
+  .logo-link__image_place_form {
+    /*TODO*/
+    margin: 0 0 48px;
+    text-align: center;
+  }
+}
