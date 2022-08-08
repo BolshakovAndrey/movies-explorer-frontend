@@ -1,5 +1,5 @@
 .not-found {
-  min-height: 100vh;
+  min-height: 700px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,9 +42,16 @@
   transition: color .3s ease;
 }
 
-@media screen and (max-width: 414px), screen and (max-width: 699px) {
+@media screen and (max-width: 1023px) {
+  .not-found {
+    min-height: 1024px;
+  }
+}
+
+  @media screen and (max-width: 414px),  screen and (max-height: 699px) {
   .not-found {
     position: relative;
+    min-height: 768px;
   }
 
   .not-found__title {
@@ -55,12 +62,12 @@
 
   .not-found__subtitle {
     font-size: var(--text-size-xxs);
-    line-height: 1.21;
+    line-height: 1.25;
   }
 
   .not-found__button {
     font-size: var(--text-size-xxs);
-    line-height: 1.21;
+    line-height: 1.25;
 
     position: absolute;
     bottom: 30px;

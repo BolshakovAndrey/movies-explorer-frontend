@@ -1,5 +1,5 @@
 .login__container {
-  margin: auto;
+  margin: var(--side-margin-default) auto auto;
 }
 
 @media screen and (max-width: 767px) {

@@ -1,6 +1,10 @@
+import SearchForm from '../SearchForm/SearchForm';
+
 function SavedMovies() {
     return (
-        <p>SavedMovies — компонент страницы с сохранёнными карточками фильмов.</p>
+        <main className="main page__content">
+            <SearchForm />
+        </main>
     );
 }
 

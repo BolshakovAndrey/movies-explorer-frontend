@@ -4,9 +4,10 @@ import SectionTitle from "../SectionTitle/SectionTitle";
 function Techs() {
     const TECHS_LIST_ITEMS = ['HTML', 'CSS', 'JS', 'React', 'Git', 'Express.js', 'mongoDB']
     return (
-        <section className="techs section">
-            <div className="section__container section__container_size_medium">
+        <section className="techs main__section">
+            <div className="main__section-container main__section-container_size_m">
                 <SectionTitle
+                    className="section__title_techs"
                     title="Технологии"
                 />
                 <div className="techs__content">

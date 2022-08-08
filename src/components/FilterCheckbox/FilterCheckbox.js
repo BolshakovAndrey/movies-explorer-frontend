@@ -1,3 +1,5 @@
+import './FilterCheckbox.css';
+
 function FilterCheckbox({ onChange }) {
     return (
         <div className="filter-checkbox">

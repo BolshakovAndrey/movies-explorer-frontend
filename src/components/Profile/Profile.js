@@ -1,5 +1,6 @@
-import { useContext } from "react";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext"
+import {useContext} from "react";
+import {CurrentUserContext} from "../../contexts/CurrentUserContext"
+import './Profile.css'
 
 function Profile() {
     const currentUser = useContext(CurrentUserContext);
@@ -7,7 +8,7 @@ function Profile() {
         <form className="profile">
             <h2 className="profile__heading">Привет, {currentUser.name}!</h2>
             <fieldset>
-                <lavel className="profile__info" form="name">Имя</lavel>
+                <lavel className="profile__info" htmlFor="name">Имя</lavel>
                 <input className="form__item form__item_el_name"
                        id="name"
                        type="text"
@@ -17,7 +18,7 @@ function Profile() {
                        minLength="2" maxLength="30"
                        required
                 />
-                <lavel className="profile__info" form="email">E-mail</lavel>
+                <lavel className="profile__info" htmlFor="email">E-mail</lavel>
                 <input className="form__item form__item_el_email"
                        id="email"
                        type="email"

@@ -1,0 +1,10 @@
+.profile {
+  margin: auto;
+}
+
+@media screen and (max-height: 667px) {
+  .profile {
+    padding: 30px 0;
+    box-sizing: border-box;
+  }
+}

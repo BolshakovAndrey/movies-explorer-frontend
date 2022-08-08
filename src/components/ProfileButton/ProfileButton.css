@@ -1,0 +1,40 @@
+.profile-btn {
+  padding: 6px 22px;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 500;
+  text-decoration: none;
+
+  color: var(--color-text-primary);
+  background: var(--color-bg-button);
+  border-radius: 50px;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  transition: color .3s ease;
+}
+
+.profile-btn:hover {
+  color: rgba(255, 255, 255,  .7);
+}
+
+/* landing page */
+
+.header_place_landing .profile-btn {
+  color: var(--color-text-tertiary);
+}
+
+.header_place_landing {
+  color: var(--color-text-tertiary);
+}
+
+.header_place_landing .profile-btn:hover {
+  color: rgba(255, 255, 255, .6);
+  border: 2px solid rgba(170, 170, 170, .1);
+}
+
+.header_place_landing .profile-btn:hover{
+  color: rgba(255, 255, 255, .6);
+}

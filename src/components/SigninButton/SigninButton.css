@@ -1,0 +1,26 @@
+.signin-btn {
+  padding: 8px 20px;
+  font-size: var(--text-size-xxs);
+  line-height: 1.33;
+  font-weight: 500;
+  text-decoration: none;
+
+  color: var(--color-text-fourth);
+  background: var(--color-accent-primary);
+  border-radius:3px;
+  display:block;
+
+  transition: opacity .3s ease;
+}
+
+.signin-btn:hover {
+  opacity: .8;
+}
+
+@media screen and (max-width: 767px) {
+  .signin-btn{
+    padding: 5px 12px;
+    font-size: var(--text-size-4xs);
+    line-height: 1.6;
+  }
+}

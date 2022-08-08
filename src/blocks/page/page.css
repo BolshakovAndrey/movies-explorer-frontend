@@ -8,25 +8,26 @@
   text-rendering: optimizeLegibility;
 }
 
+.page__container {
+  min-width: var(--min-width);
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .page__header {
-  max-width: var(--max-width);
-  width: calc(100% - (var(--side-margin) * 2));
-  margin: 0;
-  padding: 21px 0;
+  padding: 18px 0;
 }
 
 .page__content {
+  flex-grow: 1;
   display: grid;
 }
 
 .page__footer {
-  padding: 78px 0 20px;
-}
-
-@media screen and (max-width: 1023px) {
-  .page__footer {
-    padding: 34px 0 20px;
-  }
+  padding: 79px 0 20px;
 }
 
 @media screen and (max-width: 767px) {

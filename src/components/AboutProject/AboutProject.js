@@ -4,8 +4,8 @@ import SectionTitle from "../SectionTitle/SectionTitle";
 
 function AboutProject() {
     return (
-        <section className="project section" id="project">
-            <div className="section__container section__container_size_medium">
+        <section className="project main__section" id="project">
+            <div className="main__section-container main__section-container_size_m">
                 <SectionTitle
                     title="О проекте"
                 />
@@ -31,7 +31,7 @@ function AboutProject() {
                         <p className="project-timing__text">Back-end</p>
                     </li>
                     <li className="project-timing__cell">
-                        <p className="project-timing__heading">4 недели</p>
+                        <p className="project-timing__heading_frontend">4 недели</p>
                         <p className="project-timing__text">Front-end</p>
                     </li>
                 </ul>

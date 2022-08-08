@@ -40,7 +40,17 @@
   padding: 9px 0;
   font-size: var(--text-size-s);
   line-height: 1.2;
-  background: var(--color-bg-tertiary);
+  background: #303030;
+  color: var(--color-text-fourth);
+  text-align: center;
+}
+.project-timing__heading_frontend{
+  margin: 0 0 14px;
+  padding: 9px 0;
+  font-size: var(--text-size-s);
+  line-height: 1.2;
+  background: #303030;
+  color: var(--color-text-primary);
   text-align: center;
 }
 
@@ -48,11 +58,13 @@
   background: var(--color-accent-primary);
 }
 
-.project-desc__text {
+.project-timing__text {
   margin: 0;
-  font-size: var(--text-size-s);
-  line-height: 1.43;
+  font-size: var(--text-size-3xs);
+  line-height: 1.18;
   font-weight: 400;
+  color: var(--color-text-secondary);
+  text-align: center;
 }
 
 @media screen and (max-width: 1023px) {
@@ -105,5 +117,6 @@
 
   .project-timing__text {
     font-size: var(--text-size-s);
+    text-align: center;
   }
 }

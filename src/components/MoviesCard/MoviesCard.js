@@ -1,21 +1,29 @@
-function MoviesCard({ card }) {
+import './MoviesCard.css';
+import {ReactComponent as LikeIcon} from '../../images/like_invisible.svg';
+
+function MoviesCard({card}) {
     return (
-        <li className="movie-card">
+        <li className="movies-card">
             <img
-                className="movie-card__image"
+                className="movies-card__image"
                 src={card.thumbnail}
                 alt={`Кадр из фильма ${card.name}`}
             />
-            <div className="movie-card__desc">
-                <h3 className="movie-card__title">{card.name}</h3>
-                <p className="movie-card__duration">{card.duration}</p>
+            <div className="movies-card__desc">
+                <h3 className="movies-card__title">{card.name}</h3>
+                <button className="movies-card__btn"
+                        type="button"
+                        aria-label="Сохранить фильм"
+                >
+                    <LikeIcon
+                        className="movies-card__btn-icon"
+                        fill="currentColor"
+                    />
+                </button>
             </div>
-            <button className="movies-card__btn"
-                    type="button"
-                    aria-label="Сохранить фильм"
-            />
+            <p className="movies-card__duration">{card.duration}</p>
         </li>
     )
 }
 
-export default  MoviesCard;
+export default MoviesCard;
