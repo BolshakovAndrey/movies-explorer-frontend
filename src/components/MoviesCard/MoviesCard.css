@@ -40,10 +40,7 @@
   color: var(--color-text-tertiary);
 }
 
-
-
 .movies-card__btn-icon {
-  all: unset;
   width: 24px;
   height: 24px;
   background-color: #202020;
@@ -57,7 +54,14 @@ button, [type="button"], [type="reset"] {
 }
 
 .movies-card__save-btn:hover {
-  background: rgba(249, 249, 249, 0.8);
+  cursor: pointer;
+}
+
+.movies-card__save-btn_active {
+  padding: 0;
+  background-repeat: no-repeat;
+  opacity: 1;
+  cursor: pointer;
 }
 
 .movies-card:hover .movies-card__save-btn {
