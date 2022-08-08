@@ -7,7 +7,14 @@
   justify-content: flex-end;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px 20px;
+  gap: 10px 50px;
+}
+
+.navigation__links-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  list-style: none;
 }
 
 .navigation__link {

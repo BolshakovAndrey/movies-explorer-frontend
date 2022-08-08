@@ -21,25 +21,23 @@ function Navigation() {
     ]
 
     return (
-        <nav className="navigation">
-            <ul className="navigation__items">
-                {NAVIGATION_LINKS.map((item) => (
-                    <li className="navigation__list-item" key={item.key}>
-                        <NavLink
-                            className="navigation__link"
-                            activeClassName="navigation__link_active"
-                            to={{ pathname: item.linkPath }}
-                            exact={item.exact}
-                        >
-                            {item.linkText}
-                        </NavLink>
-                    </li>
-                ))}
-                <li>
-                    <ProfileButton />
+        <div className="navigation__links-container">
+            {NAVIGATION_LINKS.map((item) => (
+                <li className="navigation__list-item" key={item.key}>
+                    <NavLink
+                        className="navigation__link"
+                        activeClassName="navigation__link_active"
+                        to={{pathname: item.linkPath}}
+                        exact={item.exact}
+                    >
+                        {item.linkText}
+                    </NavLink>
                 </li>
-            </ul>
-        </nav>
+            ))}
+            <li>
+                <ProfileButton/>
+            </li>
+        </div>
     )
 }
 

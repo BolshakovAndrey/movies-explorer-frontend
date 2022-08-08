@@ -1,9 +1,9 @@
-.login__container {
+.login{
   margin: var(--side-margin-default) auto auto;
 }
 
 @media screen and (max-width: 767px) {
-  .login__container {
+  .login{
     padding: 30px 0 ;
     box-sizing: border-box;
   }

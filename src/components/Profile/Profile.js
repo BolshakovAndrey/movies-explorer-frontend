@@ -1,43 +1,64 @@
-import {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext"
 import './Profile.css'
+import ProfileForm from '../ProfileForm/ProfileForm';
 
 function Profile() {
     const currentUser = useContext(CurrentUserContext);
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+
+    useEffect(() => {
+        setName(currentUser.name);
+        setEmail(currentUser.email);
+    }, [currentUser]);
+
+    const handleNameChange = (e) => {
+        setName(e.target.value);
+    }
+
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    }
+
+    const INPUTS_DATA = [
+        {
+            key: 1,
+            type: 'text',
+            id: 'profile-name',
+            label: 'Имя',
+            placeholder: 'Имя',
+            name: 'name',
+            value: name,
+            onChange: handleNameChange,
+            errorId: "profile-name-error",
+            minLength: 2,
+            maxLength: 30,
+            required: true,
+        },
+        {
+            key: 2,
+            type: 'email',
+            id: 'profile-email',
+            label: 'E-mail',
+            placeholder: 'E-mail',
+            name: 'email',
+            value: email,
+            onChange: handleEmailChange,
+            errorId: "profile-email-error",
+            minLength: 8,
+            required: true,
+        },
+    ]
+
+
     return (
-        <form className="profile">
-            <h2 className="profile__heading">Привет, {currentUser.name}!</h2>
-            <fieldset>
-                <lavel className="profile__info" htmlFor="name">Имя</lavel>
-                <input className="form__item form__item_el_name"
-                       id="name"
-                       type="text"
-                       name="name"
-                       value={currentUser.name}
-                       placeholder="Имя"
-                       minLength="2" maxLength="30"
-                       required
-                />
-                <lavel className="profile__info" htmlFor="email">E-mail</lavel>
-                <input className="form__item form__item_el_email"
-                       id="email"
-                       type="email"
-                       name="email"
-                       value={currentUser.email}
-                       placeholder="E-mail"
-                       minLength="2" maxLength="30"
-                       required
-                />
-            </fieldset>
-            <button className="form__submit"
-                     type="submit" >
-                Редактировать
-            </button>
-            <button className="form__submit"
-                    type="button" >
-                Выйти из аккаунта
-            </button>
-        </form>
+        <div className="profile">
+            <ProfileForm
+                inputsData={INPUTS_DATA}
+            />
+        </div>
     );
 }
 
