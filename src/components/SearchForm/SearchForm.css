@@ -31,6 +31,7 @@
 }
 .search-form__item {
   width: 100%;
+  padding: 10px 0;
   font-family: inherit;
   font-size: var(--text-size-2l);
   line-height: 1.21;
@@ -38,7 +39,6 @@
   color: var(--color-text-tertiary);
   background: var(--color-bg-primary);
   border: none;
-  outline: 0;
 }
 
 .search-form__item::placeholder {
