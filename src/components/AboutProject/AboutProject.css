@@ -12,6 +12,9 @@
   justify-content: space-between;
   gap: 40px;
 }
+.project-desc__cell {
+  max-width: 550px;
+}
 
 .project-desc__heading {
   margin: 0 0 26px;
@@ -31,6 +34,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
+
   display: grid;
   grid-template-columns: 1fr 4fr;
 }

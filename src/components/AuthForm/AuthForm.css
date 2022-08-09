@@ -55,7 +55,7 @@
   margin: 0;
   font-size: 14px;
   line-height: 1.2;
-  color: var( --color-text-tertiary);
+  color: var(--color-text-tertiary);
   text-align: center;
 }
 
@@ -80,7 +80,6 @@
     text-align: center;
     margin: 0 0 80px;
   }
-
 
   .auth-form__text {
     font-size: 12px;

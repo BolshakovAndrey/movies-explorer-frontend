@@ -1,5 +1,4 @@
 import './AboutProject.css';
-import '../SectionTitle/SectionTitle';
 import SectionTitle from "../SectionTitle/SectionTitle";
 
 function AboutProject() {

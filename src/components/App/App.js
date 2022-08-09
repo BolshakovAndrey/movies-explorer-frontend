@@ -23,7 +23,7 @@ function App() {
     });
 
     const [isSideMenuPopupOpen, setSideMenuPopupOpen] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(true);
     const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false)
 
     function handleSideMenuPopupOpen () {
