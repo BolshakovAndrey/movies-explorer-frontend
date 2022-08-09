@@ -1,8 +1,10 @@
-import React, {useContext} from 'react';
+import React, {useContext} from "react";
 import './ProfileForm.css';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
-function ProfileForm({ inputsData }) {
+import SubmitButton from "../SubmitButton/SubmitButton";
+
+function ProfileForm({ inputsData, submitButtonModifier, buttonText, isBeingEdited, onEditProfile }) {
     const currentUser = useContext(CurrentUserContext);
 
     return (
@@ -20,30 +22,45 @@ function ProfileForm({ inputsData }) {
                             value={item.value}
                             onChange={item.onChange}
                             placeholder={item.placeholder}
-                            maxLength={item.maxLength}
                             minLength={item.minLength}
+                            maxLength={item.maxLength}
                             required={item.required}
                         />
                         <p className="profile-form__error" id={item.errorId}>{/* Что-то пошло не так... */}</p>
                     </div>
                 ))}
             </fieldset>
-            <div className="profile-form__btns">
-                <button
-                    className="profile-form__btn profile-form__btn_use_submit"
-                    type="submit"
-                >
-                    Редактировать
-                </button>
-                <button
-                    className="profile-form__btn profile-form__btn_use_signout"
-                    type="submit"
-                >
-                    Выйти из аккаунта
-                </button>
-            </div>
+            {isBeingEdited ? (
+                <div className="profile-form__btns">
+                    <SubmitButton
+                        classNameModifier={submitButtonModifier}
+                        textContent={buttonText}
+                        disabled={true}
+                    />
+                </div>
+            ) : (
+                <div className="profile-form__btns">
+                    <button
+                        type="button"
+                        className="profile-form__btn profile-form__btn_use_edit"
+                        onClick={onEditProfile}
+                    >
+                        Редактировать
+                    </button>
+                    <button
+                        type="button"
+                        className="profile-form__btn profile-form__btn_use_signout"
+                    >
+                        Выйти из аккаунта
+                    </button>
+                </div>
+            )
+            }
+
+
+
         </form>
-    );
+    )
 }
 
 export default ProfileForm;

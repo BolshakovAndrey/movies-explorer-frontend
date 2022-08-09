@@ -21,6 +21,10 @@
   width: 0;
 }
 
+.filter-checkbox__input:focus-visible + .filter-checkbox__slider {
+  outline: auto;
+}
+
 .filter-checkbox__input:checked + .filter-checkbox__slider {
   /* ширина ползунка минус ширина кнопки переключения минус желобок переключения */
   right: calc(36px - 16px - 2px);

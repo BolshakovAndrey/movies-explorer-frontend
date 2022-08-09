@@ -2,8 +2,11 @@ import React, {useState} from 'react';
 import './MoviesCard.css';
 import {ReactComponent as CheckIcon} from '../../images/saved.svg';
 import {ReactComponent as UnCheckIcon} from '../../images/unSaved.svg';
+import {useLocation} from "react-router-dom";
 
 function MoviesCard({card}) {
+
+    let location = useLocation();
 
     const [isSaved, setIsSaved] = useState(false);
     // временно для целей разработки
@@ -12,7 +15,7 @@ function MoviesCard({card}) {
     }
 
     const cardSaveButtonClassName = (
-        `movies-card__save-btn ${isSaved ? 'movies-card__save-btn_active' : ''}`
+        `movies-card__btn movies-card__btn_use_save ${isSaved ? 'movies-card__btn_active' : ''}`
     )
 
     const cardSaveButtonContent = (
@@ -28,6 +31,7 @@ function MoviesCard({card}) {
             />
             <div className="movies-card__desc">
                 <h3 className="movies-card__title">{card.name}</h3>
+                {location.pathname === '/movies' &&
                 <button className={cardSaveButtonClassName}
                         type="button"
                         aria-label="Сохранить фильм"
@@ -35,6 +39,16 @@ function MoviesCard({card}) {
                 >
                     {cardSaveButtonContent}
                 </button>
+                }
+                {location.pathname === '/saved-movies' &&
+                <button
+                    className="movies-card__btn movies-card__btn_use_delete"
+                    type="button"
+                    aria-label="Удалить из сохраненных"
+                >
+                    {cardSaveButtonContent}
+                </button>
+                }
             </div>
             <p className="movies-card__duration">{card.duration}</p>
         </li>

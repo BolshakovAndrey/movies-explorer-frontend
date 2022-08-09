@@ -9,6 +9,7 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import SideMenu from '../SideMenu/SideMenu';
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 
 import HeaderLayout from '../../layouts/HeaderLayout';
 import HeaderFooterLayout from '../../layouts/HeaderFooterLayout';
@@ -22,8 +23,8 @@ function App() {
     });
 
     const [isSideMenuPopupOpen, setSideMenuPopupOpen] = useState(false);
-
     const [loggedIn, setLoggedIn] = useState(true);
+    const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(true)
 
     function handleSideMenuPopupOpen () {
         setSideMenuPopupOpen(true);
@@ -31,6 +32,7 @@ function App() {
 
     function closeAllPopups() {
         setSideMenuPopupOpen(false);
+        setInfoTooltipPopupOpen(false);
     }
 
     const closeByEsc = useCallback(e => {
@@ -40,11 +42,11 @@ function App() {
     }, []);
 
     useEffect(() => {
-        if (isSideMenuPopupOpen) {
+        if (isSideMenuPopupOpen || isInfoTooltipPopupOpen ) {
             document.addEventListener('keydown', closeByEsc)
         }
         return () => document.removeEventListener('keydown', closeByEsc)
-    }, [closeByEsc, isSideMenuPopupOpen]);
+    }, [closeByEsc, isSideMenuPopupOpen, isInfoTooltipPopupOpen]);
 
     return (
         <div className="page">
@@ -94,6 +96,10 @@ function App() {
                         isOpen={isSideMenuPopupOpen}
                         onClose={closeAllPopups}
                         onMobileLink={closeAllPopups}
+                    />
+                    <InfoTooltip
+                        isOpen={isInfoTooltipPopupOpen}
+                        onClose={closeAllPopups}
                     />
                 </div>
             </CurrentUserContext.Provider>

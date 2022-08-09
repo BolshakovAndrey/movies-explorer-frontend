@@ -9,10 +9,16 @@ function Profile() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
 
+    const [isBeginEdited, setBeginEdited] = useState(false);
+
     useEffect(() => {
         setName(currentUser.name);
         setEmail(currentUser.email);
     }, [currentUser]);
+
+    function handleEditProfile() {
+        setBeginEdited(!isBeginEdited)
+    }
 
     const handleNameChange = (e) => {
         setName(e.target.value);
@@ -57,6 +63,9 @@ function Profile() {
         <div className="profile">
             <ProfileForm
                 inputsData={INPUTS_DATA}
+                buttonText="Сохранить"
+                isBeginEdited={isBeginEdited}
+                onEditProfile={handleEditProfile}
             />
         </div>
     );
