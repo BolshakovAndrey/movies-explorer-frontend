@@ -3,11 +3,11 @@ import './ProfileButton.css';
 import {NavLink} from 'react-router-dom';
 
 
-function ProfileButton({ onClick }) {
+function ProfileButton({onClick}) {
     return (
         <NavLink
             className="profile-btn"
-            to={{ pathname: '/profile' }}
+            to={{pathname: '/profile'}}
             onClick={onClick}
         >
             Аккаунт

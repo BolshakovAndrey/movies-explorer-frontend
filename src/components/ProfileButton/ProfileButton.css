@@ -17,7 +17,7 @@
 }
 
 .profile-btn:hover {
-  color: rgba(255, 255, 255,  .7);
+  color: rgba(255, 255, 255, .7);
 }
 
 /* landing page */
@@ -35,6 +35,6 @@
   border: 2px solid rgba(170, 170, 170, .1);
 }
 
-.header_place_landing .profile-btn:hover{
+.header_place_landing .profile-btn:hover {
   color: rgba(255, 255, 255, .6);
 }

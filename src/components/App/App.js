@@ -22,8 +22,8 @@ function App() {
         email: 'email@email.com'
     });
 
-    const [isSideMenuPopupOpen, setSideMenuPopupOpen] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(true);
+    const [isSideMenuPopupOpen, setSideMenuPopupOpen] = useState(true);
+    const [loggedIn, setLoggedIn] = useState(false);
     const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false)
 
     function handleSideMenuPopupOpen () {

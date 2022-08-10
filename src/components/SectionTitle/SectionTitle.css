@@ -9,17 +9,6 @@
   border-bottom: 1px solid var(--color-text-primary);
 }
 
-.section__title_techs {
-  width: 100%;
-  margin: 0;
-  padding: 0 0 23px;
-  font-size: var(--text-size-l);
-  line-height: 1.23;
-  font-weight: 400;
-  letter-spacing: var(--letter-spacing-tight);
-  border-bottom: 1px solid var(--color-text-fourth);
-}
-
 @media screen and (max-width: 767px) {
   .section__title {
     font-size: 18px;

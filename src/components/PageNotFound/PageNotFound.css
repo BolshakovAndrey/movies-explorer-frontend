@@ -1,15 +1,16 @@
 .not-found {
-  min-height: 700px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
 .not-found__container {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
+  padding: 244px;
 }
 
 .not-found__title {
@@ -38,7 +39,6 @@
   border: unset;
   cursor: pointer;
   position: relative;
-  bottom: -184px;
   transition: color .3s ease;
 }
 
@@ -46,9 +46,14 @@
   .not-found {
     min-height: 1024px;
   }
+
+  .not-found__container {
+    padding-top: 408px;
+  }
+
 }
 
-  @media screen and (max-width: 414px),  screen and (max-height: 699px) {
+@media screen and (max-width: 414px), screen and (max-height: 699px) {
   .not-found {
     position: relative;
     min-height: 768px;
@@ -71,5 +76,9 @@
 
     position: absolute;
     bottom: 30px;
+  }
+
+  .not-found__container {
+    padding-top: 329px;
   }
 }

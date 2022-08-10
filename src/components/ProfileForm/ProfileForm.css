@@ -1,4 +1,3 @@
-/*TODO*/
 .profile-form {
   width: 410px;
   display: flex;
@@ -6,7 +5,7 @@
 }
 
 .profile-form__heading {
-  margin: 0 0 125px;
+  margin: 0 0 123px;
   font-size: 24px;
   line-height: 1.2;
   font-weight: 500;
@@ -17,7 +16,6 @@
   margin: 0;
   padding: 0;
   border: none;
-
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -34,7 +32,7 @@
 }
 
 .profile-form__item-container:not(:last-child) {
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1px solid var(--color-bg-tertiary);
 }
 
 .profile-form__label {
@@ -52,6 +50,8 @@
   border: 0;
   outline: none;
   text-align: right;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
 }
 
 .profile-form__error {
@@ -67,7 +67,7 @@
 }
 
 .profile-form__btns {
-  margin-top: 205px;
+  margin-top: 220px;
 
   display: flex;
   flex-direction: column;
@@ -83,6 +83,7 @@
 
   cursor: pointer;
   transition: opacity .3s ease;
+  color: var(--color-text-primary)
 }
 
 .profile-form__btn:hover {
@@ -99,7 +100,7 @@
   }
 
   .profile-form__btns {
-    margin-top: 195px;
+    margin-top: 210px;
   }
 }
 
@@ -114,7 +115,7 @@
   }
 
   .profile-form__btns {
-    margin-top: auto;
+    margin-top: 379px;
   }
 
   .profile-form__btn {

@@ -21,6 +21,7 @@
 
 @media screen and (max-width: 767px) {
   .logo-link_place_form {
+    width: 100%;
     margin: 0 0 48px;
     text-align: center;
   }

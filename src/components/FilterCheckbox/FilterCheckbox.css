@@ -79,11 +79,14 @@
   }
   .filter-checkbox__slider {
     position: absolute;
-    left: 78%;
+    left: 70%;
   }
   .filter-checkbox__label {
     font-size: var( --text-size-3xs);
     line-height: 1.64;
+  }
+  .filter-checkbox__label {
+    padding-left: 0;
   }
 }
 

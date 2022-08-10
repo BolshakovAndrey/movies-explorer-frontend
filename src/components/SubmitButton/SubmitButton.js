@@ -10,7 +10,7 @@ function SubmitButton({ classNameModifier, disabled, textContent }) {
         <button
             className={submitButtonClassName}
             type="submit"
-            disabled={disabled}
+            // disabled={disabled}
         >
             {textContent}
         </button>

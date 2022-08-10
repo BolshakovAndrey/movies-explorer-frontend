@@ -1,6 +1,7 @@
 import "./MoviesCardList.css"
 import MoviesCard from "../MoviesCard/MoviesCard";
 
+// временные данные для разработки
 const cards = [
     {
         _id: '1',

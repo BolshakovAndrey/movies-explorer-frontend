@@ -4,7 +4,7 @@ import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
 import SubmitButton from "../SubmitButton/SubmitButton";
 
-function ProfileForm({ inputsData, submitButtonModifier, buttonText, isBeingEdited, onEditProfile }) {
+function ProfileForm({inputsData, submitButtonModifier, buttonText, isBeingEdited, onEditProfile}) {
     const currentUser = useContext(CurrentUserContext);
 
     return (
@@ -57,7 +57,6 @@ function ProfileForm({ inputsData, submitButtonModifier, buttonText, isBeingEdit
                 </div>
             )
             }
-
 
 
         </form>
