@@ -7,14 +7,12 @@ https://www.figma.com/file/z8coaXjm7nnTdDUlGYUnOf/Diploma-(Copy)?node-id=932%3A2
 
 ## Технологии
 
-![Node.js](https://img.shields.io/badge/-Node.js-000?&logo=Node.js)
-![Express.js](https://img.shields.io/badge/-Express.js-000?&logo=Express)
-![MongoDB](https://img.shields.io/badge/-MongoDB-000?&logo=mongodb)
-![Mongoose](https://img.shields.io/badge/-Mongoose-000?&logo=Mongoose)
+![React](https://img.shields.io/badge/-React-000?&logo=React)
+![html5](https://img.shields.io/badge/-HTML-000?&logo=html5)
+![CSS](https://img.shields.io/badge/-CSS-000?&logo=CSS3)
+![Webpack](https://img.shields.io/badge/-Webpack-000?&logo=Webpack)
 ![Eslint](https://img.shields.io/badge/-Eslint-000?&logo=Eslint)
-![Joi](https://img.shields.io/badge/-Joi-000?&logo=Joi)
-![Helmet](https://img.shields.io/badge/-Helmet-000?&logo=Helmet)
-![Кфеу Limitter](https://img.shields.io/badge/-Limitter-000?&logo=Limitter)
+![CRA](https://img.shields.io/badge/-CRA-000?&logo=React)
 
 
 ### Ссылка на API сервера
