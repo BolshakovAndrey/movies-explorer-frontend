@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Route, Switch} from 'react-router-dom';
+import {Route, Switch, useHistory} from 'react-router-dom';
 
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -9,22 +9,107 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import SideMenu from '../SideMenu/SideMenu';
-import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 import HeaderLayout from '../../layouts/HeaderLayout';
 import HeaderFooterLayout from '../../layouts/HeaderFooterLayout';
 
+import mainApi from '../../utils/MainApi';
+import {DEFAULT_ERROR_MESSAGE, loginErrorMessages, registrationErrorMessages} from '../../utils/constants';
+
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
 function App() {
-    const [currentUser, setCurrentUser] = useState({
-        name: 'Виталий',
-        email: 'email@email.com'
-    });
+    const [currentUser, setCurrentUser] = useState({});
+    const [loggedIn, setLoggedIn] = useState(false);
 
     const [isSideMenuPopupOpen, setSideMenuPopupOpen] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false)
+    const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+
+    const [authErrorMessage, setAuthErrorMessage] = useState('');
+
+    const history = useHistory();
+
+    const handleTokenCheck = useCallback(() => {
+        mainApi
+            .checkToken()
+            .then((res) => {
+                setCurrentUser(res.data);
+                setLoggedIn(true);
+            })
+            .catch((err) => {
+                console.log(`Error: ${err}`);
+            })
+    }, [])
+
+    useEffect(() => {
+        handleTokenCheck();
+    }, [handleTokenCheck])
+
+    const handleRegistration = (data) => {
+        mainApi
+            .register(data)
+            .then(() => {
+                handleLogin({
+                    email: data.email,
+                    password: data.password
+                });
+            })
+            .catch((err) => {
+                switch (err) {
+                    case 400:
+                        setAuthErrorMessage(registrationErrorMessages.BAD_REQUEST);
+                        break;
+                    case 409:
+                        setAuthErrorMessage(registrationErrorMessages.CONFLICT);
+                        break;
+                    default:
+                        setAuthErrorMessage(DEFAULT_ERROR_MESSAGE);
+                }
+            })
+    }
+
+    const handleLogin = (data) => {
+        mainApi
+            .authorize(data)
+            .then(() => {
+                handleTokenCheck();
+            })
+            .then(() => {
+                history.push('/movies');
+            })
+            .catch((err) => {
+                switch (err) {
+                    case 400:
+                        setAuthErrorMessage(loginErrorMessages.INVALID_CREDENTIALS);
+                        break;
+                    case 401:
+                        setAuthErrorMessage(loginErrorMessages.UNAUTHORIZED);
+                        break;
+                    case 500:
+                        setAuthErrorMessage(DEFAULT_ERROR_MESSAGE);
+                        break;
+                    default:
+                        setAuthErrorMessage(loginErrorMessages.BAD_REQUEST);
+                }
+            })
+    }
+
+    const resetAuthErrorMessage = () => {
+        setAuthErrorMessage('');
+    };
+
+    const handleSignOut = () => {
+        mainApi
+            .signOut()
+            .then(() => {
+                setLoggedIn(false);
+                history.push("/");
+            })
+            .catch((err) => {
+                console.log(`Unable to logout. ${err}`);
+            })
+    }
 
     function handleSideMenuPopupOpen () {
         setSideMenuPopupOpen(true);
@@ -32,7 +117,7 @@ function App() {
 
     function closeAllPopups() {
         setSideMenuPopupOpen(false);
-        setInfoTooltipPopupOpen(false);
+        setIsInfoTooltipPopupOpen(false);
     }
 
     const closeByEsc = useCallback(e => {
@@ -42,7 +127,7 @@ function App() {
     }, []);
 
     useEffect(() => {
-        if (isSideMenuPopupOpen || isInfoTooltipPopupOpen ) {
+        if (isSideMenuPopupOpen || isInfoTooltipPopupOpen) {
             document.addEventListener('keydown', closeByEsc)
         }
         return () => document.removeEventListener('keydown', closeByEsc)
@@ -80,13 +165,22 @@ function App() {
                                 component={Profile}
                                 loggedIn={loggedIn}
                                 onOpenMenu={handleSideMenuPopupOpen}
+                                onSignOut={handleSignOut}
                             />
                         </Route>
                         <Route path="/signup">
-                            <Register />
+                            <Register
+                                onRegistration={handleRegistration}
+                                authErrorMessage={authErrorMessage}
+                                resetAuthErrorMessage={resetAuthErrorMessage}
+                            />
                         </Route>
                         <Route path="/signin">
-                            <Login />
+                            <Login
+                                onLogin={handleLogin}
+                                authErrorMessage={authErrorMessage}
+                                resetAuthErrorMessage={resetAuthErrorMessage}
+                            />
                         </Route>
                         <Route path="*">
                             <PageNotFound />

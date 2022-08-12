@@ -1,15 +1,16 @@
-import React, {useContext, useEffect, useState} from "react";
-import {CurrentUserContext} from "../../contexts/CurrentUserContext"
-import './Profile.css'
+import React, {useContext, useEffect, useState} from 'react';
+import './Profile.css';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
+
 import ProfileForm from '../ProfileForm/ProfileForm';
 
-function Profile() {
+function Profile({ onSignOut }) {
     const currentUser = useContext(CurrentUserContext);
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
 
-    const [isBeginEdited, setBeginEdited] = useState(false);
+    const [isBeingEdited, setIsBeingEdited] = useState(false);
 
     useEffect(() => {
         setName(currentUser.name);
@@ -17,14 +18,14 @@ function Profile() {
     }, [currentUser]);
 
     function handleEditProfile() {
-        setBeginEdited(!isBeginEdited)
+        setIsBeingEdited(!isBeingEdited);
     }
 
     const handleNameChange = (e) => {
         setName(e.target.value);
     }
 
-    const handleEmailChange = (e) => {
+    const hanldeEmailChange = (e) => {
         setEmail(e.target.value);
     }
 
@@ -51,24 +52,24 @@ function Profile() {
             placeholder: 'E-mail',
             name: 'email',
             value: email,
-            onChange: handleEmailChange,
+            onChange: hanldeEmailChange,
             errorId: "profile-email-error",
             minLength: 8,
             required: true,
         },
     ]
 
-
     return (
         <div className="profile">
             <ProfileForm
                 inputsData={INPUTS_DATA}
                 buttonText="Сохранить"
-                isBeginEdited={isBeginEdited}
+                isBeingEdited={isBeingEdited}
                 onEditProfile={handleEditProfile}
+                onSignOut={onSignOut}
             />
         </div>
-    );
+    )
 }
 
 export default Profile;

@@ -2,21 +2,28 @@ import React from 'react';
 import './AuthForm.css';
 import {Link} from 'react-router-dom';
 
+import AuthError from '../AuthError/AuthError';
 import SubmitButton from '../SubmitButton/SubmitButton';
 
 function AuthForm({
                       name,
                       heading,
                       inputsData,
-                      submitButtonModifier,
+                      authErrorModifier,
+                      authErrorMessage,
                       buttonText,
                       formText,
                       linkPath,
-                      linkText
+                      linkText,
+                      onSubmit,
+                      onChange,
+                      values,
+                      errors,
+                      isValid
                   }) {
 
     return (
-        <form className="auth-form" name={name}>
+        <form onSubmit={onSubmit} className="auth-form" name={name} noValidate>
             <h2 className="auth-form__heading">{heading}</h2>
             <fieldset className="auth-form__items">
                 {inputsData.map((item) => (
@@ -31,15 +38,23 @@ function AuthForm({
                             minLength={item.minLength}
                             maxLength={item.maxLength}
                             required={item.required}
+                            onChange={onChange}
+                            value={values[item.name]}
+                            pattern={item.pattern}
                         />
-                        <p className="auth-form__error" id={item.errorId}>{/* Что-то пошло не так... */}</p>
+                        <p className="auth-form__item-error">
+                            {errors[item.name]}
+                        </p>
                     </div>
                 ))}
             </fieldset>
+            <AuthError
+                classNameModifier={authErrorModifier}
+                errorMessage={authErrorMessage}
+            />
             <SubmitButton
-                classNameModifier={submitButtonModifier}
                 textContent={buttonText}
-                disabled={true}
+                disabled={!isValid}
             />
             <p className="auth-form__text">
                 {formText}
