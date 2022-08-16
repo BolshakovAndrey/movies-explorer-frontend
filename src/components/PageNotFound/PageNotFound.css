@@ -42,7 +42,7 @@
   transition: color .3s ease;
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1164px) {
   .not-found {
     min-height: 1024px;
   }

@@ -32,7 +32,7 @@
   border-bottom: 2px solid var(--color-text-primary);
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1164px) {
   .mobile-navigation__list-item:last-of-type {
     margin-top: 593px;
   }

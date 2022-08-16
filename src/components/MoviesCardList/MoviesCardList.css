@@ -43,7 +43,7 @@
   color: var(--color-text-primary);
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1164px) {
   .movies__list {
     grid-template-columns: repeat(auto-fill, 339px);
     gap: 30px 30px;

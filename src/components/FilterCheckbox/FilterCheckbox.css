@@ -1,14 +1,13 @@
-.filter-checkbox  {
-  padding: 32px  0 47px 0;
-  border-top: 1px solid var(--color-bg-tertiary);
-  grid-column-start: -3;
-  grid-column-end: -1;
+.filter-checkbox {
+  padding: 10px 0 10px 29px;
+  border-left: 1px solid #cbcbcb;
 }
 
 .filter-checkbox__label {
-  font-size: var(--text-size-xs);
-  line-height: 1.38;
-  padding-left: calc(36px + 14px);
+  font-size: 13px;
+  line-height: 1.4;
+  padding-left: calc(36px + 14px); /* slider width plus desired gap */
+
   display: block;
   position: relative;
   cursor: pointer;
@@ -26,68 +25,61 @@
 }
 
 .filter-checkbox__input:checked + .filter-checkbox__slider {
-  /* ширина ползунка минус ширина кнопки переключения минус желобок переключения */
-  right: calc(36px - 16px - 2px);
-  background-color: var(--color-bg-fivth);
+  background-color: #ebebeb;
 }
 
- .filter-checkbox__slider {
-   position: absolute;
-   left: 0;
-   top: 0;
-   width: 36px; /* ширина ползунка */
-   height: 20px;
-   border-radius: 20px;
-   background: var(--color-accent-primary);
- }
+.filter-checkbox__input:checked + .filter-checkbox__slider:after {
+  right: calc(36px - 16px - 2px); /* slider width minus toggle control width minus toggle gutter */
+  background-color: var(--color-bg-secondary);
+}
+
+.filter-checkbox__slider {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 36px; /* slider width */
+  height: 20px;
+  border-radius: 20px;
+  background-color: var(--color-accent-primary);
+
+  transition: background-color .3s ease, opacity .3s ease;
+}
 
 .filter-checkbox__slider:hover {
   opacity: .8;
 }
+
 .filter-checkbox__slider:after {
   content: "";
   position: absolute;
-  top: 2px; /* желобок переключения */
-  right: 2px; /* желобок переключения */
-  width: 18px; /* ширина переключателя  */
+  top: 2px; /* toggle gutter */
+  right: 2px; /* toggle gutter */
+  width: 16px; /* toggle control width */
   height: 16px;
   border-radius: 50px;
-  background: var(--color-text-primary);
+  background: var(--color-text-fivth);
 
   transition: background-color .3s ease, right .3s ease;
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1164px) {
   .filter-checkbox {
-    padding: 29px 0 60px;
-    display: flex;
-    justify-content: flex-end;
-  }
-  .filter-checkbox__slider {
-    position: absolute;
-    left: 83%;
-
-  }
-  .filter-checkbox__label {
-    padding-right: 55px;
+    padding: 10px 0 10px 19px;
   }
 }
+
 @media screen and (max-width: 767px) {
   .filter-checkbox {
-    display: flex;
-    justify-content: center;
-  }
-  .filter-checkbox__slider {
+    padding: 0;
+    border-left: none;
     position: absolute;
-    left: 70%;
+    bottom: 45px;
+    left: 50%;
+    transform: translateX(-50%);
   }
+
   .filter-checkbox__label {
-    font-size: var( --text-size-3xs);
-    line-height: 1.64;
-  }
-  .filter-checkbox__label {
-    padding-left: 0;
+    font-size: 11px;
+    line-height: 1.65;
   }
 }
-
-

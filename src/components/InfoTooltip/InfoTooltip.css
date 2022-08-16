@@ -4,8 +4,10 @@
   right: 0;
   bottom: 0;
   left: 0;
+  width: 100vw;
+  height: 100vh;
 
-  background-color: rgba(0, 0, 0, .3);
+  background-color: rgba(0, 0, 0, .8);
   z-index: 1;
 
   display: flex;
@@ -25,7 +27,7 @@
 .popup__container {
   position: relative;
   box-sizing: border-box;
-  width: 400px;
+  width: 500px;
   padding: 60px 41px;
   color: var(--color-text-primary);
   background-color: var(--color-bg-primary);

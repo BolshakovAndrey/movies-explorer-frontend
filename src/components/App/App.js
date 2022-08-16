@@ -24,7 +24,7 @@ function App() {
 
     const [isSideMenuPopupOpen, setSideMenuPopupOpen] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
-    const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false)
+    const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(true)
 
     function handleSideMenuPopupOpen () {
         setSideMenuPopupOpen(true);
