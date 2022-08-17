@@ -1,9 +1,10 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './Profile.css';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
 import ProfileForm from '../ProfileForm/ProfileForm';
 import useFormWithValidation from '../../hooks/useFormWithValidation';
+import {customErrorMessages, patterns} from '../../utils/constants';
 
 function Profile({
                      submitButtonText,
@@ -14,6 +15,8 @@ function Profile({
                      resetFormErrorMessage,
                      onSignOut,
                  }) {
+    const [infoHasBeenChanged, setInfoHasBeenChanged] = useState(false);
+
     const currentUser = useContext(CurrentUserContext);
 
     const {
@@ -27,6 +30,14 @@ function Profile({
     useEffect(() => {
         resetForm({ name: currentUser.name, email: currentUser.email });
     }, [currentUser]);
+
+    useEffect(() => {
+        if (currentUser.name === values.name && currentUser.email === values.email) {
+            setInfoHasBeenChanged(false);
+        } else {
+            setInfoHasBeenChanged(true);
+        }
+    }, [currentUser, values]);
 
     useEffect(() => {
         resetFormErrorMessage();
@@ -46,7 +57,8 @@ function Profile({
             placeholder: 'Имя',
             name: 'name',
             required: true,
-            pattern: '[a-zA-Z -]{2,30}',
+            pattern: patterns.NAME,
+            customErrorMessage: customErrorMessages.NAME,
         },
         {
             key: 2,
@@ -56,6 +68,8 @@ function Profile({
             placeholder: 'E-mail',
             name: 'email',
             required: true,
+            pattern: patterns.EMAIL,
+            customErrorMessage: customErrorMessages.EMAIL,
         },
     ]
 
@@ -68,6 +82,7 @@ function Profile({
                 errorMessage={profileErrorMessage}
                 submitButtonText={submitButtonText}
                 isBeingEdited={isBeingEdited}
+                infoHasBeenChanged={infoHasBeenChanged}
                 onEditProfile={onEditProfile}
                 onChange={handleChange}
                 onSubmit={handleSubmit}

@@ -21,3 +21,14 @@ export const profileErrorMessages = {
 };
 
 export const DEFAULT_ERROR_MESSAGE = 'Ошибка сервера.';
+
+export const patterns = {
+    NAME: '[a-zA-Z -]{2,30}',
+    EMAIL: '^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\\.)+[A-Za-z]+$',
+};
+
+export const customErrorMessages = {
+    NAME: 'Используйте только латиницу, пробел или дефис',
+    EMAIL: 'Используйте email формата name@domain.ru',
+    PASSWORD: 'Минимальная длина пароля - 8 символов',
+};

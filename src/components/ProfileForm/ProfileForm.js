@@ -11,6 +11,7 @@ function ProfileForm({
                          submitGroupModifier,
                          submitButtonText,
                          isBeingEdited,
+                         infoHasBeenChanged,
                          onEditProfile,
                          onChange,
                          onSubmit,
@@ -43,7 +44,7 @@ function ProfileForm({
                             pattern={item.pattern}
                         />
                         <p className="profile-form__item-error" id={item.errorId}>
-                            {errors[item.name]}
+                            {errors[item.name] && item.customErrorMessage}
                         </p>
                     </div>
                 ))}
@@ -53,7 +54,7 @@ function ProfileForm({
                     classNameModifier={submitGroupModifier}
                     errorMessage={errorMessage}
                     buttonText={submitButtonText}
-                    buttonDisabled={!isValid}
+                    buttonDisabled={!isValid || !infoHasBeenChanged}
                 />
             ) : (
                 <div className="profile-form__btns">
