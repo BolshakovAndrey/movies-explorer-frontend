@@ -1,4 +1,4 @@
-import './FilterCheckbox.css';
+import './FilterCheckbox.css'
 
 function FilterCheckbox({ onChange }) {
     return (
@@ -8,6 +8,8 @@ function FilterCheckbox({ onChange }) {
                 <input
                     className="filter-checkbox__input"
                     type="checkbox"
+                    name="shortfilm"
+                    onChange={onChange}
                 />
                 <span className="filter-checkbox__slider"/>
             </label>
