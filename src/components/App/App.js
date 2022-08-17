@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Route, Switch, useHistory} from 'react-router-dom';
+import {Redirect, Route, Switch, useHistory} from 'react-router-dom';
 
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -48,7 +48,7 @@ function App() {
                 .then((res) => {
                     setCurrentUser(res.data);
                 })
-                .catch((err) => console.log('Couldnt get user info from the server', err));
+                .catch((err) => console.log('Не удалось получить информацию о пользователе с сервера', err));
         }
     }, [loggedIn]);
 
@@ -223,18 +223,24 @@ function App() {
                                 />
                             </ProtectedRoute>
                             <Route path="/signup">
-                                <Register
-                                    onRegistration={handleRegistration}
-                                    authErrorMessage={authErrorMessage}
-                                    resetAuthErrorMessage={resetAllErrorMessages}
-                                />
+                                {loggedIn
+                                    ? <Redirect to='/movies' />
+                                    : <Register
+                                        onRegistration={handleRegistration}
+                                        authErrorMessage={authErrorMessage}
+                                        resetAuthErrorMessage={resetAllErrorMessages}
+                                    />
+                                }
                             </Route>
                             <Route path="/signin">
-                                <Login
-                                    onLogin={handleLogin}
-                                    authErrorMessage={authErrorMessage}
-                                    resetAuthErrorMessage={resetAllErrorMessages}
-                                />
+                                {loggedIn
+                                    ? <Redirect to='/movies' />
+                                    : <Login
+                                        onLogin={handleLogin}
+                                        authErrorMessage={authErrorMessage}
+                                        resetAuthErrorMessage={resetAllErrorMessages}
+                                    />
+                                }
                             </Route>
                             <Route path="*">
                                 <PageNotFound />
