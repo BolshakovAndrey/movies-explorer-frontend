@@ -38,10 +38,6 @@ function SearchForm({ onCheckboxChange, onSubmit }) {
             <div className="search-form__container main__section-container main__section-container_size_xs">
                 <form onSubmit={handleSubmit} className="search-form__content" name="search-form" noValidate>
                     <label className="search-form__label" htmlFor="search-form-movie">
-                        <SearchIcon
-                            className="search-form__label-icon"
-                            fill="currentColor"
-                        />
                         <input
                             className="search-form__item"
                             id="search-form-movie"

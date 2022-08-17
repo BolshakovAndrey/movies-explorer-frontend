@@ -16,11 +16,11 @@ export const loginErrorMessages = {
 };
 
 export const profileErrorMessages = {
+    SUCCESS: 'Ваш профиль был успешно обновлен',
     CONFLICT: 'Пользователь с такими email уже существует.',
     BAD_REQUEST: 'Ошибка обновления профиля.'
 };
 
-export const DEFAULT_ERROR_MESSAGE = 'Ошибка сервера.';
 
 export const patterns = {
     NAME: '[a-zA-Z -]{2,30}',
@@ -32,3 +32,7 @@ export const customErrorMessages = {
     EMAIL: 'Используйте email формата name@domain.ru',
     PASSWORD: 'Минимальная длина пароля - 8 символов',
 };
+
+export const SERVER_ERROR_MESSAGE = 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
+
+export const DEFAULT_ERROR_MESSAGE = 'На сервере произошла ошибка';

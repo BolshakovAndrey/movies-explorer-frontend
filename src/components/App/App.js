@@ -24,7 +24,8 @@ import {
     loginErrorMessages,
     MOVIES_URL,
     profileErrorMessages,
-    registrationErrorMessages
+    registrationErrorMessages,
+    SERVER_ERROR_MESSAGE
 } from '../../utils/constants';
 
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
@@ -42,6 +43,7 @@ function App() {
 
     const [isSideMenuPopupOpen, setSideMenuPopupOpen] = useState(false);
     const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+    const [infoTooltipMessage, setIinfoTooltipMessage] = useState('');
 
     const [loginSubmitButtonText, setLoginSubmitButtonText] = useState('Войти');
     const [registerSubmitButtonText, setRegisterSubmitButtonText] = useState('Зарегистрироваться');
@@ -192,6 +194,8 @@ function App() {
             })
             .then(() => {
                 setProfileIsBeingEdited(false);
+                setIinfoTooltipMessage(profileErrorMessages.SUCCESS);
+                setIsInfoTooltipPopupOpen(true);
             })
             .catch((err) => {
                 switch (err) {
@@ -232,7 +236,7 @@ function App() {
                     year: card.year || ' ',
                     description: card.description || ' ',
                     image: `${MOVIES_URL}${card.image.url}`,
-                    trailer: card.trailerLink || `https://www.youtube.com/watch?v=M6KxVntypo4`,
+                    trailer: card.trailerLink || `https://www.youtube.com/results?search_query=слушая+москву+фильм`, /* i've got an idea! */
                     thumbnail: `${MOVIES_URL}${card.image.formats.thumbnail.url}`,
                     nameRU: card.nameRU || ' ',
                     nameEN: card.nameEN || ' ',
@@ -246,6 +250,11 @@ function App() {
                     console.log(`Unable to save movie. Error code: ${err}`);
                 })
         }
+    }
+
+    const handleNoMoviesData = () => {
+        setIsInfoTooltipPopupOpen(true);
+        setIinfoTooltipMessage(SERVER_ERROR_MESSAGE);
     }
 
     const handleEditProfile = () => {
@@ -300,6 +309,7 @@ function App() {
                                     onOpenMenu={handleSideMenuPopupOpen}
                                     moviesData={moviesData}
                                     savedMoviesData={savedMoviesData}
+                                    onNoMoviesData={handleNoMoviesData}
                                     onCardSaveToggle={handleCardSaveToggle}
                                 />
                             </ProtectedRoute>
@@ -360,6 +370,7 @@ function App() {
                     />
                     <InfoTooltip
                         isOpen={isInfoTooltipPopupOpen}
+                        message={infoTooltipMessage}
                         onClose={closeAllPopups}
                     />
                 </div>
