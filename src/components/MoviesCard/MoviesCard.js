@@ -40,8 +40,8 @@ function MoviesCard({ card }) {
             </Link>
             <div className="movies-card__desc">
                 <h3 className="movies-card__title">{card.nameRU}</h3>
-                <span className="movies-card__duration">{convertDuration(card.duration)}</span>
             </div>
+            <span className="movies-card__duration">{convertDuration(card.duration)}</span>
             {location.pathname === '/saved-movies' &&
             <button
                 className="movies-card__btn movies-card__btn_use_delete"

@@ -36,8 +36,7 @@ function App() {
     const [currentUser, setCurrentUser] = useState({});
     const [loggedIn, setLoggedIn] = useState(true);
 
-    const [authErrorMessage, setAuthErrorMessage] = useState('');
-    const [profileErrorMessage, setProfileErrorMessage] = useState('');
+    const [formErrorMessage, setFormErrorMessage] = useState('');
     const [profileIsBeingEdited, setProfileIsBeingEdited] = useState(false);
 
     const [moviesData, setMoviesData] = useState([]);
@@ -55,7 +54,7 @@ function App() {
                 .then((res) => {
                     setCurrentUser(res.data);
                 })
-                .catch((err) => console.log('Не удалось получить информацию о пользователе с сервера', err));
+                .catch((err) => console.log('Couldnt get user info from the server', err));
 
             setIsLoadingMovies(true);
 
@@ -100,13 +99,13 @@ function App() {
             .catch((err) => {
                 switch (err) {
                     case 400:
-                        setAuthErrorMessage(registrationErrorMessages.BAD_REQUEST);
+                        setFormErrorMessage(registrationErrorMessages.BAD_REQUEST);
                         break;
                     case 409:
-                        setAuthErrorMessage(registrationErrorMessages.CONFLICT);
+                        setFormErrorMessage(registrationErrorMessages.CONFLICT);
                         break;
                     default:
-                        setAuthErrorMessage(DEFAULT_ERROR_MESSAGE);
+                        setFormErrorMessage(DEFAULT_ERROR_MESSAGE);
                 }
             })
     }
@@ -121,16 +120,16 @@ function App() {
             .catch((err) => {
                 switch (err) {
                     case 400:
-                        setAuthErrorMessage(loginErrorMessages.INVALID_CREDENTIALS);
+                        setFormErrorMessage(loginErrorMessages.INVALID_CREDENTIALS);
                         break;
                     case 401:
-                        setAuthErrorMessage(loginErrorMessages.INVALID_CREDENTIALS);
+                        setFormErrorMessage(loginErrorMessages.INVALID_CREDENTIALS);
                         break;
                     case 500:
-                        setAuthErrorMessage(DEFAULT_ERROR_MESSAGE);
+                        setFormErrorMessage(DEFAULT_ERROR_MESSAGE);
                         break;
                     default:
-                        setAuthErrorMessage(loginErrorMessages.UNAUTHORIZED);
+                        setFormErrorMessage(loginErrorMessages.UNAUTHORIZED);
                 }
             })
     }
@@ -160,17 +159,17 @@ function App() {
             .catch((err) => {
                 switch (err) {
                     case 409:
-                        setProfileErrorMessage(profileErrorMessages.CONFLICT);
+                        setFormErrorMessage(profileErrorMessages.CONFLICT);
                         break;
                     default:
-                        setProfileErrorMessage(profileErrorMessages.BAD_REQUEST);
+                        setFormErrorMessage(profileErrorMessages.BAD_REQUEST);
                 }
             })
     }
 
     const localMoviesData = JSON.parse(localStorage.getItem('movies'));
 
-    const handleSearchFormSubmit = (searchQuery) => {
+    const handleSearchFormSubmit = (searchQuery ) => {
         let filteredMovies = [];
         filteredMovies = filterMovies(searchQuery, localMoviesData);
 
@@ -187,9 +186,8 @@ function App() {
         setProfileIsBeingEdited(true);
     }
 
-    const resetAllErrorMessages = () => {
-        setAuthErrorMessage('');
-        setProfileErrorMessage('');
+    const resetAllFormErrorMessages = () => {
+        setFormErrorMessage('');
     };
 
     const handleSideMenuPopupOpen = () => {
@@ -219,8 +217,8 @@ function App() {
             <CurrentUserContext.Provider value={currentUser}>
                 <div className="page__container">
                     {isLoading
-                        ? <Preloader/>
-                        : <Switch>
+                        ?<Preloader />
+                        :<Switch>
                             <Route exact path="/">
                                 <HeaderFooterLayout
                                     component={Main}
@@ -256,33 +254,33 @@ function App() {
                                     onEditProfile={handleEditProfile}
                                     onUpdateUser={handleUpdateUser}
                                     isBeingEdited={profileIsBeingEdited}
-                                    profileErrorMessage={profileErrorMessage}
-                                    resetProfileErrorMessage={resetAllErrorMessages}
+                                    profileErrorMessage={formErrorMessage}
+                                    resetFormErrorMessage={resetAllFormErrorMessages}
                                     onSignOut={handleSignOut}
                                 />
                             </ProtectedRoute>
                             <Route path="/signup">
                                 {loggedIn
-                                    ? <Redirect to='/movies'/>
+                                    ? <Redirect to='/movies' />
                                     : <Register
                                         onRegistration={handleRegistration}
-                                        authErrorMessage={authErrorMessage}
-                                        resetAuthErrorMessage={resetAllErrorMessages}
+                                        authErrorMessage={formErrorMessage}
+                                        resetFormErrorMessage={resetAllFormErrorMessages}
                                     />
                                 }
                             </Route>
                             <Route path="/signin">
                                 {loggedIn
-                                    ? <Redirect to='/movies'/>
+                                    ? <Redirect to='/movies' />
                                     : <Login
                                         onLogin={handleLogin}
-                                        authErrorMessage={authErrorMessage}
-                                        resetAuthErrorMessage={resetAllErrorMessages}
+                                        authErrorMessage={formErrorMessage}
+                                        resetFormErrorMessage={resetAllFormErrorMessages}
                                     />
                                 }
                             </Route>
                             <Route path="*">
-                                <PageNotFound/>
+                                <PageNotFound />
                             </Route>
                         </Switch>
                     }
