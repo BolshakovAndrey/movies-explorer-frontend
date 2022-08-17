@@ -42,7 +42,7 @@ class MainApi {
             .then(this._handleResponse);
     }
 
-    checkToken() {
+    getUserInfo() {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'GET',
             headers: this._headers,
@@ -58,6 +58,20 @@ class MainApi {
         })
             .then(this._handleResponse);
     }
+
+    setUserInfo(data) {
+        return fetch(`${this._baseUrl}/users/me`, {
+            method: 'PATCH',
+            headers: this._headers,
+            credentials: 'include',
+            body: JSON.stringify({
+                email: data.email,
+                name: data.name,
+            })
+        })
+            .then(this._handleResponse);
+    }
+
 }
 
 const mainApi = new MainApi({
