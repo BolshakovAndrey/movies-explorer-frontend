@@ -18,11 +18,11 @@ import ProtectedRoute from '../ProtectedRoute';
 
 import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
-import filterMovies from '../../utils/filterMovies';
 
 import {
     DEFAULT_ERROR_MESSAGE,
     loginErrorMessages,
+    MOVIES_URL,
     profileErrorMessages,
     registrationErrorMessages
 } from '../../utils/constants';
@@ -31,41 +31,65 @@ import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
-    const [isLoadingMovies, setIsLoadingMovies] = useState(false);
 
+    const [loggedIn, setLoggedIn] = useState(false);
     const [currentUser, setCurrentUser] = useState({});
-    const [loggedIn, setLoggedIn] = useState(true);
+    const [moviesData, setMoviesData] = useState({});
+    const [savedMoviesData, setSavedMoviesData] = useState({});
 
     const [formErrorMessage, setFormErrorMessage] = useState('');
     const [profileIsBeingEdited, setProfileIsBeingEdited] = useState(false);
 
-    const [moviesData, setMoviesData] = useState([]);
-    const [noMoviesFound, setNoMoviesFound] = useState(false);
-
     const [isSideMenuPopupOpen, setSideMenuPopupOpen] = useState(false);
     const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+
+    const [loginSubmitButtonText, setLoginSubmitButtonText] = useState('Войти');
+    const [registerSubmitButtonText, setRegisterSubmitButtonText] = useState('Зарегистрироваться');
+    const [profileSubmitButtonText, setProfileSubmitButtonText] = useState('Сохранить');
 
     const history = useHistory();
 
     useEffect(() => {
         if (loggedIn) {
-            mainApi
-                .getUserInfo()
-                .then((res) => {
-                    setCurrentUser(res.data);
-                })
-                .catch((err) => console.log('Couldnt get user info from the server', err));
+            const localUserData = localStorage.getItem('currentUser');
+            const localMoviesData = localStorage.getItem('movies');
+            const localSavedMoviesData = localStorage.getItem('savedMovies');
 
-            setIsLoadingMovies(true);
+            if (!localUserData) {
+                mainApi
+                    .getUserInfo()
+                    .then((res) => {
+                        localStorage.setItem('currentUser', JSON.stringify(res.data));
+                        setCurrentUser(res.data);
+                    })
+                    .catch((err) => console.log('Couldn\'t get user info from the server', err));
+            } else {
+                setCurrentUser(JSON.parse(localUserData));
+            }
 
-            moviesApi
-                .getMovies()
-                .then((res) => {
-                    localStorage.setItem('movies', JSON.stringify(res.data));
-                })
-                .finally(() => {
-                    setIsLoadingMovies(false);
-                })
+            if (!localMoviesData) {
+                moviesApi
+                    .getMovies()
+                    .then((res) => {
+                        localStorage.setItem('movies', JSON.stringify(res.data));
+                        setMoviesData(res.data);
+                    })
+                    .catch((err) => console.log('Couldn\'t get movies data from the server', err));
+            } else {
+                setMoviesData(JSON.parse(localMoviesData));
+            }
+
+            if (!localSavedMoviesData) {
+                mainApi
+                    .getSavedMovies()
+                    .then((res) => {
+                        localStorage.setItem('savedMovies', JSON.stringify(res.data.data));
+                        setSavedMoviesData(res.data.data);
+                    })
+                    .catch((err) => console.log('Couldn\'t get saved movies data from the server', err));
+            } else {
+                setSavedMoviesData(JSON.parse(localSavedMoviesData));
+            }
         }
     }, [loggedIn]);
 
@@ -74,12 +98,12 @@ function App() {
             .getUserInfo()
             .then(() => {
                 setLoggedIn(true);
-                setIsLoading(false);
             })
             .catch((err) => {
-                setLoggedIn(false);
+                console.log(`Error code: ${err}`);
+            })
+            .finally(() => {
                 setIsLoading(false);
-                console.log(`Error: ${err}`);
             })
     }, [])
 
@@ -88,6 +112,8 @@ function App() {
     }, [handleTokenCheck])
 
     const handleRegistration = (data) => {
+        setRegisterSubmitButtonText('Выполняется регистрация...');
+
         mainApi
             .register(data)
             .then(() => {
@@ -108,9 +134,14 @@ function App() {
                         setFormErrorMessage(DEFAULT_ERROR_MESSAGE);
                 }
             })
+            .finally(() => {
+                setRegisterSubmitButtonText('Зарегистрироваться');
+            })
     }
 
     const handleLogin = (data) => {
+        setLoginSubmitButtonText('Выполняется вход...');
+
         mainApi
             .authorize(data)
             .then(() => {
@@ -132,6 +163,9 @@ function App() {
                         setFormErrorMessage(loginErrorMessages.UNAUTHORIZED);
                 }
             })
+            .finally(() => {
+                setLoginSubmitButtonText('Войти');
+            })
     }
 
     const handleSignOut = () => {
@@ -143,15 +177,18 @@ function App() {
                 history.push("/");
             })
             .catch((err) => {
-                console.log(`Unable to logout. ${err}`);
+                console.log(`Unable to logout. Error code: ${err}`);
             })
     }
 
     const handleUpdateUser = (data) => {
+        setProfileSubmitButtonText('Сохранение...');
+
         mainApi
             .setUserInfo(data)
-            .then(() => {
-                setCurrentUser(data);
+            .then((res) => {
+                localStorage.setItem('currentUser', JSON.stringify(res.data));
+                setCurrentUser(res.data);
             })
             .then(() => {
                 setProfileIsBeingEdited(false);
@@ -165,21 +202,50 @@ function App() {
                         setFormErrorMessage(profileErrorMessages.BAD_REQUEST);
                 }
             })
+            .finally(() => {
+                setProfileSubmitButtonText('Сохранить');
+            })
     }
 
-    const localMoviesData = JSON.parse(localStorage.getItem('movies'));
+    const handleCardDelete = (card) => {
+        mainApi
+            .deleteSavedMovie(card._id)
+            .then(() => {
+                localStorage.setItem('savedMovies', JSON.stringify(savedMoviesData.filter((item) => item !== card)));
+                setSavedMoviesData(savedMoviesData.filter((item) => item !== card));
+            })
+            .catch((err) => {
+                console.log(`Unable to delete movie. Error code: ${err}`);
+            })
+    }
 
-    const handleSearchFormSubmit = (searchQuery ) => {
-        let filteredMovies = [];
-        filteredMovies = filterMovies(searchQuery, localMoviesData);
-
-        if (filteredMovies.length === 0) {
-            setNoMoviesFound(true);
+    const handleCardSaveToggle = (card) => {
+        if (card.isSaved) {
+            const savedMovie = savedMoviesData.find(movie => movie.movieId === card.id);
+            handleCardDelete(savedMovie);
         } else {
-            setNoMoviesFound(false);
+            mainApi
+                .saveMovie({
+                    country: card.country,
+                    director: card.director,
+                    duration: card.duration,
+                    year: card.year,
+                    description: card.description,
+                    image: `${MOVIES_URL}${card.image.url}`,
+                    trailer: card.trailerLink,
+                    thumbnail: `${MOVIES_URL}${card.image.formats.thumbnail.url}`,
+                    nameRU: card.nameRU,
+                    nameEN: card.nameEN,
+                    movieId: card.id,
+                })
+                .then((res) => {
+                    localStorage.setItem('savedMovies', JSON.stringify([res.data, ...savedMoviesData]));
+                    setSavedMoviesData([res.data, ...savedMoviesData]);
+                })
+                .catch((err) => {
+                    console.log(`Unable to save movie. Error code: ${err}`);
+                })
         }
-
-        setMoviesData(filteredMovies);
     }
 
     const handleEditProfile = () => {
@@ -232,11 +298,9 @@ function App() {
                                     component={Movies}
                                     loggedIn={loggedIn}
                                     onOpenMenu={handleSideMenuPopupOpen}
-                                    isLoadingData={isLoadingMovies}
-                                    noMoviesFound={noMoviesFound}
-                                    handleSearchFormSubmit={handleSearchFormSubmit}
                                     moviesData={moviesData}
-
+                                    savedMoviesData={savedMoviesData}
+                                    onCardSaveToggle={handleCardSaveToggle}
                                 />
                             </ProtectedRoute>
                             <ProtectedRoute path="/saved-movies" loggedIn={loggedIn}>
@@ -244,6 +308,8 @@ function App() {
                                     component={SavedMovies}
                                     loggedIn={loggedIn}
                                     onOpenMenu={handleSideMenuPopupOpen}
+                                    moviesData={savedMoviesData}
+                                    onCardDelete={handleCardDelete}
                                 />
                             </ProtectedRoute>
                             <ProtectedRoute path="/profile" loggedIn={loggedIn}>
@@ -251,6 +317,7 @@ function App() {
                                     component={Profile}
                                     loggedIn={loggedIn}
                                     onOpenMenu={handleSideMenuPopupOpen}
+                                    submitButtonText={profileSubmitButtonText}
                                     onEditProfile={handleEditProfile}
                                     onUpdateUser={handleUpdateUser}
                                     isBeingEdited={profileIsBeingEdited}
@@ -263,6 +330,7 @@ function App() {
                                 {loggedIn
                                     ? <Redirect to='/movies' />
                                     : <Register
+                                        submitButtonText={registerSubmitButtonText}
                                         onRegistration={handleRegistration}
                                         authErrorMessage={formErrorMessage}
                                         resetFormErrorMessage={resetAllFormErrorMessages}
@@ -273,6 +341,7 @@ function App() {
                                 {loggedIn
                                     ? <Redirect to='/movies' />
                                     : <Login
+                                        submitButtonText={loginSubmitButtonText}
                                         onLogin={handleLogin}
                                         authErrorMessage={formErrorMessage}
                                         resetFormErrorMessage={resetAllFormErrorMessages}

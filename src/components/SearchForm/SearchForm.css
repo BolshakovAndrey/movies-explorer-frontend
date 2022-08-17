@@ -51,6 +51,7 @@
 
   position: absolute;
   right: 10px;
+  cursor: text;
 }
 
 .search-form__submit-btn {
