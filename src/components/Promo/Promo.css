@@ -60,7 +60,7 @@
   height: 304px;
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1164px) {
   .promo__container {
     flex-direction: column-reverse;
     align-items: center;

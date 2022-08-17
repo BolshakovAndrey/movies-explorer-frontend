@@ -44,16 +44,6 @@
   color: var(--color-text-secondary);
 }
 
-.search-form__item-error {
-  font-size: 10px;
-  line-height: 1.2;
-  color: var(--color-accent-secondary);
-
-  position: absolute;
-  right: 10px;
-  cursor: text;
-}
-
 .search-form__submit-btn {
   min-width: 80px;
   height: 34px;
@@ -70,13 +60,13 @@
   color: var(--color-text-tertiary);
 }
 
-
 .search-form__submit-btn:hover {
   opacity: .8;
 }
 
 
-@media screen and (max-width: 1023px) {
+
+@media screen and (max-width: 1164px) {
   .search-form__container {
     padding: 80px 0 0;
   }

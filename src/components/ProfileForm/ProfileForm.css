@@ -101,7 +101,7 @@
   color: var(--color-accent-secondary);
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1164px) {
   .profile-form__heading {
     margin: 0 0 97px;
   }

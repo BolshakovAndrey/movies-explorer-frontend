@@ -71,7 +71,7 @@
   text-align: center;
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1164px) {
   .project {
     padding: 90px 0;
   }
