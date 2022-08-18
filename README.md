@@ -7,6 +7,7 @@ https://www.figma.com/file/z8coaXjm7nnTdDUlGYUnOf/Diploma-(Copy)?node-id=932%3A2
 
 ## Технологии
 
+![Javascript](https://img.shields.io/badge/-Javascript-000?&logo=Javascript)
 ![React](https://img.shields.io/badge/-React-000?&logo=React)
 ![html5](https://img.shields.io/badge/-HTML-000?&logo=html5)
 ![CSS](https://img.shields.io/badge/-CSS-000?&logo=CSS3)
@@ -24,5 +25,5 @@ https://bolshakovav.nomoredomains.xyz
 
 ## Публичный IP
 
-`51.250.110.182`
+`158.160.5.36`
 
