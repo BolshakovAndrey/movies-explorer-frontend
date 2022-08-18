@@ -1,4 +1,8 @@
 # movies-explorer-frontend
+## PR LINK
+https://github.com/BolshakovAndrey/movies-explorer-frontend/pull/2
+
+
 Frontend for Diploma WebDeveloper by YandexPracticum
 ## Figma
 Сгенерированный макет в Figma
@@ -26,4 +30,9 @@ https://bolshakovav.nomoredomains.xyz
 ## Публичный IP
 
 `158.160.5.36`
+
+
+
+
+
 
