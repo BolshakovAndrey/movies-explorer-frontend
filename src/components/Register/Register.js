@@ -74,7 +74,7 @@ function Register({
                 name="signup-form"
                 heading="Добро пожаловать!"
                 inputsData={INPUTS_DATA}
-                submitGroupModifier="submit-group_place_singup"
+                submitGroupModifier="submit-group_place_signup"
                 errorMessage={authErrorMessage}
                 submitButtonText={submitButtonText}
                 formText="Уже зарегистрированы?"
