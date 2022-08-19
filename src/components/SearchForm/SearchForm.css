@@ -93,6 +93,7 @@
   .search-form__content {
     padding: 0;
     grid-template-columns: 1fr max-content;
+    gap: 9px;
   }
 
   .search-form__label-icon {
