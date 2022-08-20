@@ -43,7 +43,7 @@ function App() {
 
     const [isSideMenuPopupOpen, setSideMenuPopupOpen] = useState(false);
     const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
-    const [infoTooltipMessage, setIinfoTooltipMessage] = useState('');
+    const [infoTooltipMessage, setInfoTooltipMessage] = useState('');
 
     const [loginSubmitButtonText, setLoginSubmitButtonText] = useState('Войти');
     const [registerSubmitButtonText, setRegisterSubmitButtonText] = useState('Зарегистрироваться');
@@ -194,7 +194,7 @@ function App() {
             })
             .then(() => {
                 setProfileIsBeingEdited(false);
-                setIinfoTooltipMessage(profileErrorMessages.SUCCESS);
+                setInfoTooltipMessage(profileErrorMessages.SUCCESS);
                 setIsInfoTooltipPopupOpen(true);
             })
             .catch((err) => {
@@ -254,7 +254,7 @@ function App() {
 
     const handleNoMoviesData = () => {
         setIsInfoTooltipPopupOpen(true);
-        setIinfoTooltipMessage(SERVER_ERROR_MESSAGE);
+        setInfoTooltipMessage(SERVER_ERROR_MESSAGE);
     }
 
     const handleEditProfile = () => {

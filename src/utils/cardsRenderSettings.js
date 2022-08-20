@@ -1,5 +1,5 @@
 const cardsRenderSettings = {
-    desktop: { total: 12, add: 3 },
+    desktop: { total: 12, add: 4 },
     tablet: { total: 8, add: 2 },
     mobile: { total: 5, add: 2 },
 };

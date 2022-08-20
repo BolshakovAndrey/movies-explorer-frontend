@@ -17,7 +17,7 @@ function Movies({ moviesData, savedMoviesData, onNoMoviesData, onCardSaveToggle 
     const [noMoviesFound, setNoMoviesFound] = useState(false);
     const [prevRenderedCards, setPrevRenderedCards] = useState([]);
     const [cardsToRender, setCardsToRender] = useState([]);
-    const [cardsRenderSettings, setCardsRenderSettings] = useState({total: 12, add: 3});
+    const [cardsRenderSettings, setCardsRenderSettings] = useState({total: 12, add: 4 });
     const [numberOfCardsToRender, setNumberOfCardsToRender] = useState(0);
     const [isMoreCardsToRender, setIsMoreCardsToRender] = useState(false);
 
