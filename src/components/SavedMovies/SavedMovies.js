@@ -24,7 +24,7 @@ function SavedMovies({ moviesData, onCardDelete }) {
             const lastSearchResultShortfilms = filteredMoviesData.filter(filterMoviesByDuration);
             setFilteredMoviesData(lastSearchResultShortfilms);
 
-            if (lastSearchResultShortfilms.length === 0) {
+            if ((lastSearchResultShortfilms.length === 0) && (filteredMoviesData.length === 0)) {
                 setNoMoviesFound(true);
             }
 
@@ -48,7 +48,7 @@ function SavedMovies({ moviesData, onCardDelete }) {
     const handleSearchFormSubmit = (searchQuery) => {
         setIsFilteringMoviesData(true);
 
-        let filteredMoviesData;
+        let filteredMoviesData = [];
         filteredMoviesData = filterMovies(searchQuery, isShortfilmCheckboxOn, filterCurrentUserMoviesData(moviesData));
 
         if (filteredMoviesData.length === 0) {
