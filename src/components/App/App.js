@@ -43,8 +43,9 @@ function App() {
 
     const [isSideMenuPopupOpen, setSideMenuPopupOpen] = useState(false);
     const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
-    const [infoTooltipMessage, setInfoTooltipMessage] = useState('');
+    const [infoTooltipMessage, setIinfoTooltipMessage] = useState('');
 
+    const [submitButtonDisable, setSubmitButtonDisable] = useState(false);
     const [loginSubmitButtonText, setLoginSubmitButtonText] = useState('Войти');
     const [registerSubmitButtonText, setRegisterSubmitButtonText] = useState('Зарегистрироваться');
     const [profileSubmitButtonText, setProfileSubmitButtonText] = useState('Сохранить');
@@ -115,6 +116,7 @@ function App() {
 
     const handleRegistration = (data) => {
         setRegisterSubmitButtonText('Выполняется регистрация...');
+        setSubmitButtonDisable(true);
 
         mainApi
             .register(data)
@@ -138,11 +140,13 @@ function App() {
             })
             .finally(() => {
                 setRegisterSubmitButtonText('Зарегистрироваться');
+                setSubmitButtonDisable(false);
             })
     }
 
     const handleLogin = (data) => {
         setLoginSubmitButtonText('Выполняется вход...');
+        setSubmitButtonDisable(true);
 
         mainApi
             .authorize(data)
@@ -167,6 +171,7 @@ function App() {
             })
             .finally(() => {
                 setLoginSubmitButtonText('Войти');
+                setSubmitButtonDisable(false);
             })
     }
 
@@ -194,7 +199,7 @@ function App() {
             })
             .then(() => {
                 setProfileIsBeingEdited(false);
-                setInfoTooltipMessage(profileErrorMessages.SUCCESS);
+                setIinfoTooltipMessage(profileErrorMessages.SUCCESS);
                 setIsInfoTooltipPopupOpen(true);
             })
             .catch((err) => {
@@ -254,7 +259,7 @@ function App() {
 
     const handleNoMoviesData = () => {
         setIsInfoTooltipPopupOpen(true);
-        setInfoTooltipMessage(SERVER_ERROR_MESSAGE);
+        setIinfoTooltipMessage(SERVER_ERROR_MESSAGE);
     }
 
     const handleEditProfile = () => {

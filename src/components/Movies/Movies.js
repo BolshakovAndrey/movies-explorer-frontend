@@ -11,7 +11,13 @@ import {useWindowSize} from '../../hooks/useWindowSize';
 import {getCardsRenderSettings} from '../../utils/cardsRenderSettings';
 
 function Movies({ moviesData, savedMoviesData, onNoMoviesData, onCardSaveToggle }) {
-    const [isShortfilmCheckboxOn, setIsShortfilmCheckboxOn] = useState(false);
+    const [isShortfilmCheckboxOn, setIsShortfilmCheckboxOn] = useState(() => {
+        const savedItem = localStorage.getItem("isShortfilmCheckboxOn");
+        const parsedItem = JSON.parse(savedItem);
+        if(isShortfilmCheckboxOn) {
+        }
+        return parsedItem;
+    });
     const [isFilteringMoviesData, setIsFilteringMoviesData] = useState(false);
     const [filteredMoviesData, setFilteredMoviesData] = useState([]);
     const [noMoviesFound, setNoMoviesFound] = useState(false);
@@ -72,6 +78,10 @@ function Movies({ moviesData, savedMoviesData, onNoMoviesData, onCardSaveToggle 
         setIsShortfilmCheckboxOn(state);
     };
 
+    useEffect(() => {
+      localStorage.setItem('isShortfilmCheckboxOn', JSON.stringify(isShortfilmCheckboxOn))
+    });
+
     const handleNoMoviesData = () => {
         onNoMoviesData();
     }
@@ -129,7 +139,6 @@ function Movies({ moviesData, savedMoviesData, onNoMoviesData, onCardSaveToggle 
             return newMovie;
         })
     }
-
     return (
         <main className="main page__content">
             <SearchForm

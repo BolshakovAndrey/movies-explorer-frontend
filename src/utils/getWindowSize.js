@@ -3,4 +3,4 @@ const getWindowSize = () => {
     return { width, height };
 }
 
-export default getWindowSize; 
+export default getWindowSize;
