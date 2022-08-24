@@ -7,7 +7,7 @@ export const filterMoviesByDuration = (movie) => {
 export const filterMovies = (searchQuery, isShortfilmSwitchOn, movies) => {
 
     const filterMoviesByKeyword = (movie) => {
-        return JSON.stringify(movie).toLowerCase().includes(searchQuery.toLowerCase())
+        return movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
     }
 
     if (isShortfilmSwitchOn) {
@@ -18,3 +18,5 @@ export const filterMovies = (searchQuery, isShortfilmSwitchOn, movies) => {
 }
 
 export default filterMovies;
+
+
