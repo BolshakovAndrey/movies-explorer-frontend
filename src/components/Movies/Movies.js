@@ -11,13 +11,8 @@ import {useWindowSize} from '../../hooks/useWindowSize';
 import {getCardsRenderSettings} from '../../utils/cardsRenderSettings';
 
 function Movies({ moviesData, savedMoviesData, onNoMoviesData, onCardSaveToggle }) {
-    const [isShortfilmCheckboxOn, setIsShortfilmCheckboxOn] = useState(() => {
-        const savedItem = localStorage.getItem("isShortfilmCheckboxOn");
-        const parsedItem = JSON.parse(savedItem);
-        if(isShortfilmCheckboxOn) {
-        }
-        return parsedItem;
-    });
+    const [isShortfilmCheckboxOn, setIsShortfilmCheckboxOn] = useState(localStorage.getItem('isShortfilmCheckboxOn'));
+    const [searchQuery, setSearchQuery] = useState();
     const [isFilteringMoviesData, setIsFilteringMoviesData] = useState(false);
     const [filteredMoviesData, setFilteredMoviesData] = useState([]);
     const [noMoviesFound, setNoMoviesFound] = useState(false);
@@ -78,7 +73,12 @@ function Movies({ moviesData, savedMoviesData, onNoMoviesData, onCardSaveToggle 
         setIsShortfilmCheckboxOn(state);
     };
 
+    const handleSearchChange = (state) => {
+        setSearchQuery(state);
+    };
+
     useEffect(() => {
+        console.log(localStorage.getItem('isShortfilmCheckboxOn'))
       localStorage.setItem('isShortfilmCheckboxOn', JSON.stringify(isShortfilmCheckboxOn))
     });
 
@@ -139,11 +139,14 @@ function Movies({ moviesData, savedMoviesData, onNoMoviesData, onCardSaveToggle 
             return newMovie;
         })
     }
+
     return (
         <main className="main page__content">
             <SearchForm
                 onCheckboxChange={handleCheckboxChange}
+                onSearchChange = {handleSearchChange}
                 onSubmit={handleSearchFormSubmit}
+                values={searchQuery}
             />
             <MoviesCardList
                 isFilteringMoviesData={isFilteringMoviesData}

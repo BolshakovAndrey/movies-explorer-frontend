@@ -12,6 +12,7 @@ function Login({
                    onLogin,
                    authErrorMessage,
                    resetFormErrorMessage,
+                   isLoading,
                }) {
     const {
         values,
@@ -66,6 +67,7 @@ function Login({
                 submitGroupModifier="submit-group_place_login"
                 errorMessage={authErrorMessage}
                 submitButtonText={submitButtonText}
+                disabled={!isValid || isLoading || errors}
                 formText="Ещё не зарегистрированы?"
                 linkPath="/signup"
                 linkText=" Регистрация"

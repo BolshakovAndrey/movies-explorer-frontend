@@ -31,7 +31,7 @@
 }
 
 .filter-checkbox__input:checked + .filter-checkbox__slider:after {
-  right: calc(36px - 16px - 2px); /* slider width minus toggle control width minus toggle gutter */
+  right: calc(36px - 16px - 2px); /* ширина ползунка минус ширина переключения управления минус желоб переключения */
   background-color: var(--color-bg-secondary);
 }
 

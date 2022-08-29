@@ -6,11 +6,11 @@ import {ReactComponent as SearchIcon} from '../../images/search-icon.svg';
 
 function SearchForm({ onCheckboxChange, onSubmit }) {
     const [errorMessage, setErrorMessage] = useState('');
-    const [searchQuery, setSearchQuery] = useState('');
-
+    const [searchQuery, setSearchQuery] = useState(localStorage.getItem("searchQuery"))
     useEffect(() => {
         setErrorMessage('');
     }, [searchQuery]);
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -19,12 +19,13 @@ function SearchForm({ onCheckboxChange, onSubmit }) {
             setErrorMessage('Нужно ввести ключевое слово');
             return;
         }
-
         onSubmit(searchQuery);
     };
 
     const handleSearchQueryChange = (e) => {
         const target = e.target;
+        console.log(e.target.value)
+        localStorage.setItem('searchQuery', e.target.value)
         setSearchQuery(target.value);
     }
 
@@ -46,6 +47,7 @@ function SearchForm({ onCheckboxChange, onSubmit }) {
                             placeholder="Фильм"
                             required
                             onChange={handleSearchQueryChange}
+                            value={searchQuery}
                         />
                         <p className="search-form__item-error">
                             {errorMessage}
