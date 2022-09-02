@@ -4,7 +4,7 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 import {ReactComponent as SearchIcon} from '../../images/search-icon.svg';
 
-function SearchForm({ onCheckboxChange, onSubmit }) {
+function SearchForm({ onCheckboxChange, onSubmit, isShortfilmCheckboxOn }) {
     const [errorMessage, setErrorMessage] = useState('');
     const [searchQuery, setSearchQuery] = useState(localStorage.getItem("searchQuery"))
     useEffect(() => {
@@ -65,6 +65,8 @@ function SearchForm({ onCheckboxChange, onSubmit }) {
                     </button>
                     <FilterCheckbox
                         onChange={handleCheckboxChange}
+                        isShortfilmCheckboxOn={isShortfilmCheckboxOn}
+
                     />
                 </form>
             </div>

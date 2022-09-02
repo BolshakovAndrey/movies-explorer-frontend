@@ -1,6 +1,7 @@
 import './FilterCheckbox.css'
 
-function FilterCheckbox({ onChange }) {
+function FilterCheckbox({ isShortfilmCheckboxOn, onChange }) {
+    console.log(isShortfilmCheckboxOn)
     return (
         <div className="filter-checkbox">
             <label className="filter-checkbox__label">
@@ -10,6 +11,7 @@ function FilterCheckbox({ onChange }) {
                     type="checkbox"
                     name="shortfilm"
                     onChange={onChange}
+                    checked={isShortfilmCheckboxOn ? true : false}
                 />
                 <span className="filter-checkbox__slider"/>
             </label>

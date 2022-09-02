@@ -11,8 +11,8 @@ import {useWindowSize} from '../../hooks/useWindowSize';
 import {getCardsRenderSettings} from '../../utils/cardsRenderSettings';
 
 function Movies({ moviesData, savedMoviesData, onNoMoviesData, onCardSaveToggle }) {
-    const [isShortfilmCheckboxOn, setIsShortfilmCheckboxOn] = useState(localStorage.getItem('isShortfilmCheckboxOn'));
-    const [searchQuery, setSearchQuery] = useState();
+    const [isShortfilmCheckboxOn, setIsShortfilmCheckboxOn] = useState(localStorage.getItem('isShortfilmCheckboxOn')); // состояние чекбокса
+    const [searchQuery, setSearchQuery] = useState(); // состояние запроса
     const [isFilteringMoviesData, setIsFilteringMoviesData] = useState(false);
     const [filteredMoviesData, setFilteredMoviesData] = useState([]);
     const [noMoviesFound, setNoMoviesFound] = useState(false);
@@ -69,23 +69,26 @@ function Movies({ moviesData, savedMoviesData, onNoMoviesData, onCardSaveToggle 
         }
     }, [isShortfilmCheckboxOn]);
 
-    const handleCheckboxChange = (state) => {
-        setIsShortfilmCheckboxOn(state);
-    };
 
     const handleSearchChange = (state) => {
         setSearchQuery(state);
     };
 
+    function handleCheckboxChange() {
+        setIsShortfilmCheckboxOn(!isShortfilmCheckboxOn);
+        localStorage.setItem('isShortfilmCheckboxOn', !isShortfilmCheckboxOn);
+    }
+
     useEffect(() => {
         console.log(localStorage.getItem('isShortfilmCheckboxOn'))
-      localStorage.setItem('isShortfilmCheckboxOn', JSON.stringify(isShortfilmCheckboxOn))
+      localStorage.setItem('isShortfilmCheckboxOn', isShortfilmCheckboxOn)
     });
 
     const handleNoMoviesData = () => {
         onNoMoviesData();
     }
 
+    // поиск по запросу
     const handleSearchFormSubmit = (searchQuery) => {
         if (isObjEmpty(moviesData)) {
             handleNoMoviesData();
@@ -107,6 +110,16 @@ function Movies({ moviesData, savedMoviesData, onNoMoviesData, onCardSaveToggle 
             setIsFilteringMoviesData(false);
         }
     }
+
+    // проверка чекбокса в локальном хранилище
+    useEffect(() => {
+        if (localStorage.getItem(`isShortfilmCheckboxOn`) === 'true') {
+            setIsShortfilmCheckboxOn(true);
+        } else {
+            setIsShortfilmCheckboxOn(false);
+        }
+    }, [currentUser]);
+
 
     const handleRenderMoreClick = () => {
         let numberOfFoundMovies = filteredMoviesData.length;
@@ -147,6 +160,7 @@ function Movies({ moviesData, savedMoviesData, onNoMoviesData, onCardSaveToggle 
                 onSearchChange = {handleSearchChange}
                 onSubmit={handleSearchFormSubmit}
                 values={searchQuery}
+                isShortfilmCheckboxOn={isShortfilmCheckboxOn}
             />
             <MoviesCardList
                 isFilteringMoviesData={isFilteringMoviesData}
