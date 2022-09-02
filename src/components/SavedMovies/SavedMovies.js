@@ -46,6 +46,7 @@ function SavedMovies({ moviesData, onCardDelete }) {
         setIsShortfilmCheckboxOn(state);
     };
 
+    // поиск по запросу
     const handleSearchFormSubmit = (searchQuery) => {
         setIsFilteringMoviesData(true);
 
@@ -64,6 +65,15 @@ function SavedMovies({ moviesData, onCardDelete }) {
         setIsFilteringMoviesData(false);
     }
 
+    // проверка чекбокса в локальном хранилище
+    useEffect(() => {
+        if (localStorage.getItem(`isShortfilmCheckboxOn`) === 'true') {
+            setIsShortfilmCheckboxOn(true);
+        } else {
+            setIsShortfilmCheckboxOn(false);
+        }
+    }, [currentUser]);
+
     const filterCurrentUserMoviesData = (moviesData) => {
         return moviesData.filter(
             (card) => !card.owner || (card.owner._id ?? card.owner) === currentUser._id,
@@ -79,6 +89,7 @@ function SavedMovies({ moviesData, onCardDelete }) {
             <SearchForm
                 onCheckboxChange={handleCheckboxChange}
                 onSubmit={handleSearchFormSubmit}
+                isShortfilmCheckboxOn={isShortfilmCheckboxOn}
             />
             <MoviesCardList
                 isFilteringMoviesData={isFilteringMoviesData}
