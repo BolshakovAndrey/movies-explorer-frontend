@@ -1,31 +1,51 @@
-import React, {useContext, useEffect, useState} from "react";
-import {CurrentUserContext} from "../../contexts/CurrentUserContext"
-import './Profile.css'
-import ProfileForm from '../ProfileForm/ProfileForm';
+import React, {useContext, useEffect, useState} from 'react';
+import './Profile.css';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
-function Profile() {
+import ProfileForm from '../ProfileForm/ProfileForm';
+import useFormWithValidation from '../../hooks/useFormWithValidation';
+import {customErrorMessages, patterns} from '../../utils/constants';
+
+function Profile({
+                     submitButtonText,
+                     onEditProfile,
+                     onUpdateUser,
+                     isBeingEdited,
+                     profileErrorMessage,
+                     resetFormErrorMessage,
+                     onSignOut,
+                 }) {
+    const [infoHasBeenChanged, setInfoHasBeenChanged] = useState(false);
+
     const currentUser = useContext(CurrentUserContext);
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-
-    const [isBeginEdited, setBeginEdited] = useState(false);
+    const {
+        values,
+        errors,
+        isValid,
+        handleChange,
+        resetForm,
+    } = useFormWithValidation({});
 
     useEffect(() => {
-        setName(currentUser.name);
-        setEmail(currentUser.email);
+        resetForm({ name: currentUser.name, email: currentUser.email });
     }, [currentUser]);
 
-    function handleEditProfile() {
-        setBeginEdited(!isBeginEdited)
-    }
+    useEffect(() => {
+        if (currentUser.name === values.name && currentUser.email === values.email) {
+            setInfoHasBeenChanged(false);
+        } else {
+            setInfoHasBeenChanged(true);
+        }
+    }, [currentUser, values]);
 
-    const handleNameChange = (e) => {
-        setName(e.target.value);
-    }
+    useEffect(() => {
+        resetFormErrorMessage();
+    }, [values]);
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onUpdateUser(values);
     }
 
     const INPUTS_DATA = [
@@ -36,12 +56,9 @@ function Profile() {
             label: 'Имя',
             placeholder: 'Имя',
             name: 'name',
-            value: name,
-            onChange: handleNameChange,
-            errorId: "profile-name-error",
-            minLength: 2,
-            maxLength: 30,
             required: true,
+            pattern: patterns.NAME,
+            customErrorMessage: customErrorMessages.NAME,
         },
         {
             key: 2,
@@ -50,25 +67,32 @@ function Profile() {
             label: 'E-mail',
             placeholder: 'E-mail',
             name: 'email',
-            value: email,
-            onChange: handleEmailChange,
-            errorId: "profile-email-error",
-            minLength: 8,
             required: true,
+            pattern: patterns.EMAIL,
+            customErrorMessage: customErrorMessages.EMAIL,
         },
     ]
-
 
     return (
         <div className="profile">
             <ProfileForm
+                name="profile-form"
                 inputsData={INPUTS_DATA}
-                buttonText="Сохранить"
-                isBeginEdited={isBeginEdited}
-                onEditProfile={handleEditProfile}
+                submitGroupModifier="submit-group_place_profile"
+                errorMessage={profileErrorMessage}
+                submitButtonText={submitButtonText}
+                isBeingEdited={isBeingEdited}
+                infoHasBeenChanged={infoHasBeenChanged}
+                onEditProfile={onEditProfile}
+                onChange={handleChange}
+                onSubmit={handleSubmit}
+                values={values}
+                errors={errors}
+                isValid={isValid}
+                onSignOut={onSignOut}
             />
         </div>
-    );
+    )
 }
 
 export default Profile;

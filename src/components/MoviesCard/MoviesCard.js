@@ -1,54 +1,70 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './MoviesCard.css';
 import {ReactComponent as CheckIcon} from '../../images/saved.svg';
 import {ReactComponent as UnCheckIcon} from '../../images/unSaved.svg';
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
+import getFullImageUrl from '../../utils/getFullImageUrl';
+import convertDuration from '../../utils/convertDuration';
 
-function MoviesCard({card}) {
-
+function MoviesCard({ card, onCardSaveToggle, onCardDelete }) {
     let location = useLocation();
 
-    const [isSaved, setIsSaved] = useState(false);
-    // временно для целей разработки
-    const handleSaveClick = () => {
-        setIsSaved(true);
-    }
+    const movieTrailerPathName = (
+        location.pathname === '/movies' ? card.trailerLink : card.trailer
+    );
 
-    const cardSaveButtonClassName = (
-        `movies-card__btn movies-card__btn_use_save ${isSaved ? 'movies-card__btn_active' : ''}`
-    )
+    const cardSaveToggleClassName = (
+        `movies-card__btn movies-card__btn_use_save ${card.isSaved ? 'movies-card__btn_active' : ''}`
+    );
 
     const cardSaveButtonContent = (
-        isSaved ? <CheckIcon /> : <UnCheckIcon />
+        card.isSaved ? <CheckIcon /> : <UnCheckIcon />
     );
+
+    const handleSaveToggle = () => {
+        onCardSaveToggle(card);
+    };
+
+    const handleDeleteClick = () => {
+        onCardDelete(card);
+    };
 
     return (
         <li className="movies-card">
-            <img
-                className="movies-card__image"
-                src={card.thumbnail}
-                alt={`Кадр из фильма ${card.name}`}
-            />
-            <div className="movies-card__desc">
-                <h3 className="movies-card__title">{card.name}</h3>
-                {location.pathname === '/movies' &&
-                <button className={cardSaveButtonClassName}
-                        type="button"
-                        aria-label="Сохранить фильм"
-                        onClick={handleSaveClick}
-                >
-                    {cardSaveButtonContent}
-                </button>
-                }
-                {location.pathname === '/saved-movies' &&
-                <button
-                    className="movies-card__btn movies-card__btn_use_delete"
-                    type="button"
-                    aria-label="Удалить из сохраненных"
+            <Link
+                to={{ pathname: movieTrailerPathName }}
+                target="_blank"
+                aria-label={`Открыть трейлер фильма ${card.nameRU} на youtube`}
+            >
+                <img
+                    className="movies-card__image"
+                    src={getFullImageUrl(card.image)}
+                    alt={`Кадр из фильма ${card.nameRU}`}
                 />
-                }
+            </Link>
+            <div className="movies-card__desc">
+                <h3 className="movies-card__title">{card.nameRU}</h3>
             </div>
-            <p className="movies-card__duration">{card.duration}</p>
+            <span className="movies-card__duration">{convertDuration(card.duration)}</span>
+
+            {location.pathname === '/saved-movies' &&
+            <button
+                className="movies-card__btn movies-card__btn_use_delete"
+                type="button"
+                aria-label="Удалить из сохраненных"
+                onClick={handleDeleteClick}
+            />
+            }
+            {location.pathname === '/movies' &&
+            <button
+                className={cardSaveToggleClassName}
+                type="button"
+                aria-label="Сохранить фильм"
+                onClick={handleSaveToggle}
+            >
+                {cardSaveButtonContent}
+            </button>
+            }
         </li>
     )
 }

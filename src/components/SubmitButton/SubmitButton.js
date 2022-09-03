@@ -1,18 +1,15 @@
 import React from 'react';
 import './SubmitButton.css';
 
-function SubmitButton({ classNameModifier, disabled, textContent }) {
-    const submitButtonClassName = (
-        `submit-btn ${!classNameModifier ? '' : classNameModifier}`
-    );
+function SubmitButton({ disabled, text, isLoading }) {
 
     return (
         <button
-            className={submitButtonClassName}
+            className='submit-btn'
             type="submit"
-            // disabled={disabled}
+            disabled={disabled || isLoading }
         >
-            {textContent}
+            {text}
         </button>
     )
 }
